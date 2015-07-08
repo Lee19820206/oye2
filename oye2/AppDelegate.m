@@ -8,9 +8,11 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "WelcomeViewController.h"
 
-@interface AppDelegate ()
-
+@interface AppDelegate () {
+    //BOOL isFirstLogin;//首次登录
+}
 @end
 
 @implementation AppDelegate
@@ -56,8 +58,15 @@
 
 - (void)setMainView_iPhone
 {
-    self.mainVc = [[MainViewController alloc] init];
-    [self.window setRootViewController:self.mainVc];
+    
+    NSString *firstLogin = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLogin"]];
+    if (![firstLogin isEqualToString:@"no"]) {
+        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+        
+    } else {
+        self.mainVc = [[MainViewController alloc] init];
+        [self.window setRootViewController:self.mainVc];
+    }
 }
 
 - (void)setMainView_iPad

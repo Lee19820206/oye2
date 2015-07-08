@@ -50,7 +50,7 @@
     
     self.viewControllers = [NSArray arrayWithObjects:naviVc, vc1, vc2, vc3, vc4, nil];
     self.selectedViewController = vc3;
-    //NSLog(vc3.presentingViewController.class );
+
 }
 
 - (void)didReceiveMemoryWarning {
