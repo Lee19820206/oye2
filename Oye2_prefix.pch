@@ -1,0 +1,29 @@
+//
+//  Oye2_prefix.pch
+//  oye2
+//
+//  Created by Lee on 15-6-11.
+//  Copyright (c) 2015年 Lee. All rights reserved.
+//
+
+#ifndef oye2_Oye2_prefix_pch
+#define oye2_Oye2_prefix_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "GlobalDef.h"
+//#import "StringUtils.h"
+//#import "WeiboSDK.h"
+//#import "CYAppDelegate.h"
+//
+//#define kAppKey         @"2381795914"
+//#define kRedirectURI    @"https://api.weibo.com/oauth2/default.html"
+
+//#define SharedAppDelegate ((CYAppDelegate*)[[UIApplication sharedApplication] delegate])
+#endif
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif
