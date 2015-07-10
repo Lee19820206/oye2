@@ -14,6 +14,7 @@
 		9B71604F1B1C4DA5009A41CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B71604D1B1C4DA5009A41CE /* Main.storyboard */; };
 		9B7160511B1C4DA5009A41CE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B7160501B1C4DA5009A41CE /* Images.xcassets */; };
 		9B7160541B1C4DA5009A41CE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7160521B1C4DA5009A41CE /* LaunchScreen.xib */; };
+		9B88271D1B4CD2E70033CB9B /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B88271C1B4CD2E70033CB9B /* WelcomeViewController.m */; };
 		9BDDC27C1B3A403700258236 /* RecommendationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BDDC27B1B3A403700258236 /* RecommendationViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,8 @@
 		9B71604E1B1C4DA5009A41CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B7160501B1C4DA5009A41CE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../oye2/Images.xcassets; sourceTree = "<group>"; };
 		9B7160531B1C4DA5009A41CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9B88271B1B4CD2E70033CB9B /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		9B88271C1B4CD2E70033CB9B /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		9BDDC27A1B3A403700258236 /* RecommendationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendationViewController.h; sourceTree = "<group>"; };
 		9BDDC27B1B3A403700258236 /* RecommendationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +69,7 @@
 		9B11A1161B26D7CC0098D665 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				9B88271A1B4CD2D30033CB9B /* welcome */,
 				9BDDC2791B3A3FC900258236 /* recommendation */,
 				9B7160471B1C4DA5009A41CE /* AppDelegate.h */,
 				9B7160481B1C4DA5009A41CE /* AppDelegate.m */,
@@ -131,6 +135,15 @@
 			);
 			name = "Supporting Files";
 			path = oye2;
+			sourceTree = "<group>";
+		};
+		9B88271A1B4CD2D30033CB9B /* welcome */ = {
+			isa = PBXGroup;
+			children = (
+				9B88271B1B4CD2E70033CB9B /* WelcomeViewController.h */,
+				9B88271C1B4CD2E70033CB9B /* WelcomeViewController.m */,
+			);
+			path = welcome;
 			sourceTree = "<group>";
 		};
 		9BDDC2791B3A3FC900258236 /* recommendation */ = {
@@ -217,6 +230,7 @@
 				9B7160491B1C4DA5009A41CE /* AppDelegate.m in Sources */,
 				9B7160461B1C4DA5009A41CE /* main.m in Sources */,
 				9B11A11D1B288C090098D665 /* MainViewController.m in Sources */,
+				9B88271D1B4CD2E70033CB9B /* WelcomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
