@@ -17,6 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, ((self.view.frame.size.height - 40) / 2), SCREEN_WIDTH, 40)];
+    label.backgroundColor = [UIColor yellowColor];
+    label.text = @"hello,world!";
+    [self.view addSubview:label];
+    
 }
 
 - (void)didReceiveMemoryWarning {

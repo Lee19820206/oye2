@@ -22,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];//iPhone4[width = 320.00;height = 480.00]
     self.window.backgroundColor = [UIColor blackColor];
-    
+    /*
     __block int b = 3;
     
     myblock = ^(int i){
@@ -53,7 +53,7 @@
     
     
     NSLog(@"myblock return: %d  and b= %d", myblock(1), b);
-    
+    */
     [self start];
     
     
@@ -98,7 +98,7 @@
     NSString *firstLogin = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLogin"]];
     if (![firstLogin isEqualToString:@"no"]) {
         WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
-        
+        [self.window setRootViewController:welcomeVc];
     } else {
         self.mainVc = [[MainViewController alloc] init];
         [self.window setRootViewController:self.mainVc];
