@@ -12,6 +12,7 @@
 
 @interface AppDelegate () {
     //BOOL isFirstLogin;//首次登录
+    int (^myblock)(int);
 }
 @end
 
@@ -21,7 +22,42 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];//iPhone4[width = 320.00;height = 480.00]
     self.window.backgroundColor = [UIColor blackColor];
+    
+    __block int b = 3;
+    
+    myblock = ^(int i){
+        
+        return b =  b + 3 * i;
+    };
+    
+    struct PEOPLE{
+        int sex;
+        int age;
+        char *_name;
+        char _id;
+    } people;
+    
+    int size_people = sizeof(struct PEOPLE);
+    int offset_age = offsetof(struct PEOPLE, age);
+    int offset_name = offsetof(struct PEOPLE, _name);
+    
+    NSLog(@"PEOPLE sizeof %d", size_people);
+    NSLog(@"offset_age %d", offset_age);
+     NSLog(@"offset_name %d", offset_name);
+    
+    NSLog(@"size of char %lu", sizeof(people._id));
+    
+    people._name = "lee";
+    
+    printf("%s\n", people._name);
+    
+    
+    NSLog(@"myblock return: %d  and b= %d", myblock(1), b);
+    
     [self start];
+    
+    
+    
     return YES;
 }
 
