@@ -21,7 +21,7 @@
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(0, (SCREEN_WIDTH - 40) / 2 , SCREEN_WIDTH, 40);
     label.text = @"hello, all!";
-    label.backgroundColor = [UIColor blueColor];
+    label.backgroundColor = [UIColor greenColor];
     [self.view addSubview:label];
 
 }
