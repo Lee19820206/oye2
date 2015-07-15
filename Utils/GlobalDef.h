@@ -28,5 +28,11 @@
 //终于告别讨厌的长长的颜色再加一个透明度
 #define ARGBCOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 
+//app顶部高度
+#define HEAD_H 64
+
+//app statuBar 高度
+#define STATE_BAR_H 20
+
 
 #endif

@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "GuanZhuViewController.h"
 
 @interface MainViewController ()
 {
@@ -17,6 +18,8 @@
     UIViewController *vc4;
     UIViewController *naviRootVc;
     
+    GuanZhuViewController *guanzhuVc;
+    
 }
 @end
 
@@ -25,12 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    vc1 = [[UIViewController alloc] init];
-    UIView *Vc1_SubView = [[UIView alloc] initWithFrame:
-                                 CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TAB_VIEW_BOTTOM)];
-    Vc1_SubView.backgroundColor = ARGBCOLOR(197, 85, 34, 0.8);
-    [vc1.view addSubview:Vc1_SubView];
+    guanzhuVc = [[GuanZhuViewController alloc] init];
+    vc1 = [[UINavigationController alloc] initWithRootViewController:guanzhuVc];
     
     vc2 = [[UIViewController alloc] init];
     vc3 = [[UIViewController alloc] init];
@@ -48,8 +47,9 @@
     naviVc = [[UINavigationController alloc] initWithRootViewController:naviRootVc];
     naviVc.navigationBarHidden = YES;
     
-    self.viewControllers = [NSArray arrayWithObjects:naviVc, vc1, vc2, vc3, vc4, nil];
-    self.selectedViewController = vc3;
+    self.viewControllers = [NSArray arrayWithObjects:vc1, naviVc, vc2, vc3, vc4, nil];
+    self.selectedViewController = vc1;
+    self.tabBar.translucent = YES;
 
 }
 

@@ -97,8 +97,10 @@
     
     NSString *firstLogin = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLogin"]];
     if (![firstLogin isEqualToString:@"no"]) {
-        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
-        [self.window setRootViewController:welcomeVc];
+        self.mainVc = [[MainViewController alloc] init];
+        [self.window setRootViewController:self.mainVc];
+//        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+//        [self.window setRootViewController:welcomeVc];
     } else {
         self.mainVc = [[MainViewController alloc] init];
         [self.window setRootViewController:self.mainVc];
