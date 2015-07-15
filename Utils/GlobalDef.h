@@ -35,4 +35,31 @@
 #define STATE_BAR_H 20
 
 
+//btn tag
+#define FOURBTN_TAG_OFFSET 1000
+
+//字体
+#define ZBSTYLE1_font ([UIFont systemFontOfSize:18])
+#define ZBSTYLE2_font ([UIFont systemFontOfSize:17])
+#define ZBSTYLE3_font ([UIFont systemFontOfSize:16])
+#define ZBSTYLE4_font ([UIFont systemFontOfSize:14])
+#define ZBSTYLE5_font ([UIFont systemFontOfSize:15])
+#define ZBSTYLE_font ([UIFont systemFontOfSize:14])
+#define ZBSTYLE_font_smaller ([UIFont systemFontOfSize:12])
+#define ZBSTYLE_tableFont ([UIFont boldSystemFontOfSize:17])
+#define ZBSTYLE_highlightedTextColor ([UIColor whiteColor])
+#define ZBSTYLE_tableSubTextColor (RGBCOLOR(79, 89, 105))
+#define ZBSTYLE_textColor ([UIColor blackColor])
+
+#define English_font_des ([UIFont fontWithName:@"Georgia" size:15])
+#define English_font_title ([UIFont fontWithName:@"Georgia-Bold" size:17])
+#define English_font_body ([UIFont fontWithName:@"Georgia" size:15])
+
+#define English_font_des_iPad ([UIFont fontWithName:@"Georgia" size:17])
+#define English_font_title_iPad ([UIFont fontWithName:@"Georgia-Bold" size:19])
+#define English_font_body_iPad ([UIFont fontWithName:@"Georgia" size:17])
+
+#define HotSpot_info_font ([UIFont fontWithName:@"Georgia" size:18])
+
+
 #endif
