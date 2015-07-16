@@ -16,8 +16,9 @@
 }
 @end
 
-@implementation AppDelegate
 
+@implementation AppDelegate
+@synthesize oyeNavigationVc;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];//iPhone4[width = 320.00;height = 480.00]
@@ -83,6 +84,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - start
 - (void)start
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -98,10 +100,16 @@
     NSString *firstLogin = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLogin"]];
     if (![firstLogin isEqualToString:@"no"]) {
         self.mainVc = [[MainViewController alloc] init];
-        [self.window setRootViewController:self.mainVc];
-//        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
-//        [self.window setRootViewController:welcomeVc];
+        self.mainVc.delegate = self;
+        
+        self.oyeNavigationVc = [[UINavigationController alloc] initWithRootViewController:self.mainVc];
+        
+        [self.window setRootViewController:self.oyeNavigationVc];
+        
+        //        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+        //        [self.window setRootViewController:welcomeVc];
     } else {
+        NSLog(@"");
         self.mainVc = [[MainViewController alloc] init];
         [self.window setRootViewController:self.mainVc];
     }
@@ -111,5 +119,13 @@
 {
     
 }
+
+#pragma mark - UITabBarControllerDelegate
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+
+    [(MainViewController *)tabBarController changeTabBar];
+}
+
+
 
 @end

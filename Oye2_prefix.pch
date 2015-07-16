@@ -13,6 +13,8 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "GlobalDef.h"
+
+#define SharedAppDelegate ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 //#import "StringUtils.h"
 //#import "WeiboSDK.h"
 //#import "CYAppDelegate.h"

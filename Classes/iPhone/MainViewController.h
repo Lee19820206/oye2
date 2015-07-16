@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "GlobalDef.h"
 
-@interface MainViewController : UITabBarController
+@interface MainViewController : UITabBarController<UITabBarControllerDelegate>
 
+- (void)changeTabBar;
 @end
