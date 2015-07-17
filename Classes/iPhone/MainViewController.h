@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTabBar.h"
 //#import "GlobalDef.h"
 
-@interface MainViewController : UITabBarController<UITabBarControllerDelegate>
+@interface MainViewController : UITabBarController<Oye2CusTabBarDelegate>
 
-- (void)changeTabBar;
+
 @end

@@ -31,6 +31,8 @@
 //app顶部高度
 #define HEAD_H 64
 
+#define TABBAR_H 49
+
 //app statuBar 高度
 #define STATE_BAR_H 20
 

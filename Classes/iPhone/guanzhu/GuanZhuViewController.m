@@ -42,7 +42,7 @@
     
     
     mainView = [[UIScrollView alloc] init];
-    mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - 49);
+    mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H);
     mainView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
     
     mainView.showsHorizontalScrollIndicator = YES;
@@ -342,6 +342,13 @@
 {
     int tag = sender.tag - FOURBTN_TAG_OFFSET;
     NSLog(@"%d", tag);
+    UIViewController *vc2SubVc = [[UIViewController alloc] init];
+    UIView *vc2subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [vc2SubVc.view addSubview:vc2subView];
+    vc2subView.backgroundColor = RGBCOLOR(216, 45, 45);
+    [SharedAppDelegate.oyeNavigationVc pushViewController:vc2SubVc animated:YES];
+    NSLog(@"%@ vc in oyenavigationvc", SharedAppDelegate.oyeNavigationVc.childViewControllers);
+    [SharedAppDelegate.oyeNavigationVc.navigationBar setHidden:NO];
     switch (tag) {
         //最新线路
         case 0:

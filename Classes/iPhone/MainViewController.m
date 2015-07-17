@@ -8,26 +8,24 @@
 
 #import "MainViewController.h"
 #import "GuanZhuViewController.h"
-#import "AppDelegate.h"
+#import "CustomTabBar.h"
+#import "WelcomeViewController.h"
 
 @interface MainViewController ()
 {
     UINavigationController *naviVc;
     UIViewController *vc1;
-    UIViewController *vc2;
+    UINavigationController *vc2;
     UIViewController *vc3;
     UIViewController *vc4;
     UIViewController *naviRootVc;
     
     GuanZhuViewController *guanzhuVc;
-    
-    UIImageView *tabBtn1;
-    UIImageView *tabBtn2;
-    UIImageView *tabBtn3;
-    UIImageView *tabBtn4;
-    UIImageView *tabBtn5;
-    
-    NSInteger currentId;
+  
+    WelcomeViewController *tmpVc;
+    UIView *oye2TabBar;
+    NSMutableArray *customTabBarItems;
+    UIButton *midButton;
     
 }
 @end
@@ -36,12 +34,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.delegate = self;
+    customTabBarItems = [[NSMutableArray alloc] init];
+    
+    oye2TabBar = [[UIView alloc] init];
+    oye2TabBar.frame = CGRectMake(0, SCREEN_HEIGHT - TABBAR_H, SCREEN_WIDTH, TABBAR_H);
+    oye2TabBar.backgroundColor = ARGBCOLOR(0xf8, 0xf8, 0xf8, 0.95);
+    oye2TabBar.layer.borderColor = RGBCOLOR(0xc1, 0xc1, 0xc3).CGColor;
+    oye2TabBar.layer.borderWidth = 0.5;
+    
+    
+    
     // Do any additional setup after loading the view.
     guanzhuVc = [[GuanZhuViewController alloc] init];
     vc1 = [[UINavigationController alloc] initWithRootViewController:guanzhuVc];
     
-    vc2 = [[UIViewController alloc] init];
+    
+    UIViewController *vc2SubVc = [[UIViewController alloc] init];
+    UIView *vc2subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [vc2SubVc.view addSubview:vc2subView];
+    vc2subView.backgroundColor = RGBCOLOR(216, 45, 45);
+    vc2 = [[UINavigationController alloc] initWithRootViewController:vc2SubVc];
+    
+    
     vc3 = [[UIViewController alloc] init];
     vc4 = [[UIViewController alloc] init];
     UIView *Vc4_SubView = [[UIView alloc] initWithFrame:
@@ -62,94 +76,100 @@
     naviVc = [[UINavigationController alloc] initWithRootViewController:naviRootVc];
     naviVc.navigationBarHidden = YES;
     
-    tabBtn1 = [[UIImageView alloc] init];
-    tabBtn1.frame = CGRectMake(20, 5, 33, 40);
-    [tabBtn1 setImage:[UIImage imageNamed:@"nav1p.png"]];
-    [self.tabBar addSubview:tabBtn1];
     
-    tabBtn2 = [[UIImageView alloc] init];
-    tabBtn2.frame = CGRectMake(73, 5, 33, 40);
-    [tabBtn2 setImage:[UIImage imageNamed:@"nav2.png"]];
-    [self.tabBar addSubview:tabBtn2];
+    for (int i = 0; i < 4; i++) {
+        
+        NSString *normalImageStr = [NSString stringWithFormat:@"nav%d.png", i+1];
+        NSString *selectedImageStr = [NSString stringWithFormat:@"nav%dp.png", i+1];
+        CustomTabBar *oyeTab = [[CustomTabBar alloc] initWithNormalStateImage:[UIImage imageNamed:normalImageStr] andSelectedStateImage:[UIImage imageNamed:selectedImageStr]];
+        oyeTab.tabBarTag = i+1;
+        [oyeTab switchToNormalState];
+        oyeTab.delegate = self;
+        
+        [customTabBarItems addObject:oyeTab];
+        
+        if (i == 0) {
+            [oyeTab switchToSelectedState];
+            oyeTab.frame = CGRectMake(20, 5, 33, 40);
+        } else if (i == 1){
+             oyeTab.frame = CGRectMake(73, 5, 33, 40);
+        } else if (i == 2){
+            oyeTab.frame = CGRectMake(SCREEN_WIDTH - 20 - 33 - 33 - 20, 5, 33, 40);
+        } else if (i == 3){
+            oyeTab.frame = CGRectMake(SCREEN_WIDTH - 20 - 33, 5, 33, 40);
+        }
+        
+        [oye2TabBar addSubview:oyeTab];
+    }
+ 
+//    tmpVc = [[UIViewController alloc] init];
+//    UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    tmpView.backgroundColor = RGBCOLOR(230, 141, 94);
+//    [tmpVc.view addSubview:tmpView];
+    tmpVc = [[WelcomeViewController alloc] init];
     
-    tabBtn3 = [[UIImageView alloc] init];
-    tabBtn3.frame = CGRectMake((SCREEN_WIDTH - 45)/2, 5, 45, 37);
-    [tabBtn3 setImage:[UIImage imageNamed:@"nav3.png"]];
-    [self.tabBar addSubview:tabBtn3];
     
-    tabBtn4 = [[UIImageView alloc] init];
-    tabBtn4.frame = CGRectMake(SCREEN_WIDTH - 20 - 33 - 33 - 20, 5, 33, 40);
-    [tabBtn4 setImage:[UIImage imageNamed:@"nav4.png"]];
-    [self.tabBar addSubview:tabBtn4];
-    
-    tabBtn5 = [[UIImageView alloc] init];
-    tabBtn5.frame = CGRectMake(SCREEN_WIDTH - 20 - 33, 5, 33, 40);
-    [tabBtn5 setImage:[UIImage imageNamed:@"nav5.png"]];
-    [self.tabBar addSubview:tabBtn5];
-    
-    
-//    vc1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:[UIImage imageNamed:@"nav1.png"] selectedImage:[UIImage imageNamed:@"nav1p.png"]];
-    
-    self.viewControllers = [NSArray arrayWithObjects:vc1, naviVc, vc2, vc3, vc4, nil];
+    self.viewControllers = [NSArray arrayWithObjects:vc1, naviVc, vc2, vc3, nil];
     self.selectedViewController = vc1;
-    currentId = 1;
-    self.tabBar.translucent = YES;
 
+    [self.tabBar setHidden:YES];
+    
+    midButton = [[UIButton alloc] init];
+    midButton.frame = CGRectMake((SCREEN_WIDTH - 45) / 2, SCREEN_HEIGHT - TABBAR_H + 5, 45, 37);
+    [midButton setImage:[UIImage imageNamed:@"nav5.png"] forState:UIControlStateNormal];
+    [midButton setImage:[UIImage imageNamed:@"nav5p.png"] forState:UIControlStateSelected];
+    
+    [midButton addTarget:self action:@selector(pressMidButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:oye2TabBar];
+    
+    [self.view addSubview:midButton];
 }
 
-
-- (void)changeTabBar
+- (void)pressMidButton:(UIButton *)sender
 {
-    int tabId = self.selectedIndex + 1;
-    if (tabId == currentId) {
-       
-        return;
-    }
-    //NSLog(@"%i", tabId + 1);
-    //tabId += 1;
-    currentId = tabId;
+    NSLog(@"mid press!");
     
-    if (tabId == 1) {
-        
-        tabBtn1.image = [UIImage imageNamed:@"nav1p.png"];
-        tabBtn2.image = [UIImage imageNamed:@"nav2.png"];
-        tabBtn3.image = [UIImage imageNamed:@"nav3.png"];
-        tabBtn4.image = [UIImage imageNamed:@"nav4.png"];
-        tabBtn5.image = [UIImage imageNamed:@"nav5.png"];
-    }else if(tabId == 2) {
-        
-        tabBtn1.image = [UIImage imageNamed:@"nav1.png"];
-        tabBtn2.image = [UIImage imageNamed:@"nav2p.png"];
-        tabBtn3.image = [UIImage imageNamed:@"nav3.png"];
-        tabBtn4.image = [UIImage imageNamed:@"nav4.png"];
-        tabBtn5.image = [UIImage imageNamed:@"nav5.png"];
-    }else if(tabId == 3) {
-        [SharedAppDelegate.oyeNavigationVc pushViewController:vc4 animated:YES];
-        tabBtn1.image = [UIImage imageNamed:@"nav1.png"];
-        tabBtn2.image = [UIImage imageNamed:@"nav2.png"];
-        tabBtn3.image = [UIImage imageNamed:@"nav3p.png"];
-        tabBtn4.image = [UIImage imageNamed:@"nav4.png"];
-        tabBtn5.image = [UIImage imageNamed:@"nav5.png"];
-    }else if(tabId == 4) {
-       
-        tabBtn1.image = [UIImage imageNamed:@"nav1.png"];
-        tabBtn2.image = [UIImage imageNamed:@"nav2.png"];
-        tabBtn3.image = [UIImage imageNamed:@"nav3.png"];
-        tabBtn4.image = [UIImage imageNamed:@"nav4p.png"];
-        tabBtn5.image = [UIImage imageNamed:@"nav5.png"];
-    }else if(tabId == 5) {
-       
-        tabBtn1.image = [UIImage imageNamed:@"nav1.png"];
-        tabBtn2.image = [UIImage imageNamed:@"nav2.png"];
-        tabBtn3.image = [UIImage imageNamed:@"nav3.png"];
-        tabBtn4.image = [UIImage imageNamed:@"nav4.png"];
-        tabBtn5.image = [UIImage imageNamed:@"nav5p.png"];
+    [SharedAppDelegate.oyeNavigationVc pushViewController:tmpVc animated:YES];
+    
+    [SharedAppDelegate.oyeNavigationVc.navigationBar setHidden:NO];
+}
+
+- (void)tabBarDidTapped:(id)sender
+{
+    CustomTabBar *tabBar = (CustomTabBar *)sender;
+    
+    int tabIndex = [tabBar tabBarTag];
+    
+    for (CustomTabBar *tab in customTabBarItems) {
+        [tab switchToNormalState];
     }
+    [tabBar switchToSelectedState];
+    
+    UIViewController *vc = [self.viewControllers objectAtIndex:(tabIndex - 1)];
+    self.selectedViewController = vc;
+    
+    NSLog(@"tab press");
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"viewWillAppear");
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    NSLog(@"viewWillLayoutSubviews in MainView");
+    //[self.navigationController setNavigationBarHidden:YES];
 }
 
 /*

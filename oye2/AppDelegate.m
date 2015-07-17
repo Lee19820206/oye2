@@ -100,14 +100,12 @@
     NSString *firstLogin = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLogin"]];
     if (![firstLogin isEqualToString:@"no"]) {
         self.mainVc = [[MainViewController alloc] init];
-        self.mainVc.delegate = self;
         
         self.oyeNavigationVc = [[UINavigationController alloc] initWithRootViewController:self.mainVc];
+        [oyeNavigationVc.navigationBar setHidden:YES];
         
         [self.window setRootViewController:self.oyeNavigationVc];
-        
-        //        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
-        //        [self.window setRootViewController:welcomeVc];
+
     } else {
         NSLog(@"");
         self.mainVc = [[MainViewController alloc] init];
@@ -119,13 +117,6 @@
 {
     
 }
-
-#pragma mark - UITabBarControllerDelegate
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-
-    [(MainViewController *)tabBarController changeTabBar];
-}
-
 
 
 @end
