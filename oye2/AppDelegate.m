@@ -23,6 +23,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];//iPhone4[width = 320.00;height = 480.00]
     self.window.backgroundColor = [UIColor blackColor];
+    
+    NSLog(@"iPhone6 width:  %f   height:  %f", [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     /*
     __block int b = 3;
     
