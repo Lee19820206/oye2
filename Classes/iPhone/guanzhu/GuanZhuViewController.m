@@ -13,10 +13,12 @@
 #define FOUR_BTNS_BG_H 80
 #define FOUT_BTNS_PADDING 32
 #define GAP_BANNER_AND_FOURBTN 20
-#define GAP_BETWEEN_HOT 3
+#define GAP_BETWEEN_HOT 10
 #define HOT_H 93
 #define HOT_SPAN 10
 #define DATA_H 60
+
+static const int hot_h = 93;
 
 
 @interface GuanZhuViewController (){
@@ -42,7 +44,7 @@
     
     
     mainView = [[UIScrollView alloc] init];
-    mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H);
+    mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
     mainView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
     
     mainView.showsHorizontalScrollIndicator = YES;
@@ -64,7 +66,7 @@
     
     //generate banner images
     for (int i = 0; i < BANNER_IMG_NUM; i++) {
-        UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testbanner.png"]];
+        UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"testbanner%d.png", i+1]]];
         tempView.frame = CGRectMake(i * SCREEN_WIDTH, 0, SCREEN_WIDTH, BANNER_H);
         [bannerHolder addSubview:tempView];
     }
@@ -86,7 +88,7 @@
     [self createDMS];
     
     UIView *datasView = [[UIView alloc] init];
-    datasView.frame = CGRectMake(10, BANNER_H + FOUR_BTNS_BG_H + 20 + (GAP_BETWEEN_HOT + HOT_H) * 2, SCREEN_WIDTH - HOT_SPAN * 2, DATA_H * 2);
+    datasView.frame = CGRectMake(10, BANNER_H + FOUR_BTNS_BG_H + 20 + (GAP_BETWEEN_HOT + HOT_H * 2) * 2, SCREEN_WIDTH - HOT_SPAN * 2, DATA_H * 2);
     datasView.backgroundColor = [UIColor whiteColor];
     datasView.layer.borderColor = RGBCOLOR(0xe3, 0xe6, 0xe9).CGColor;
     datasView.layer.borderWidth = 0.5;
@@ -254,7 +256,7 @@
     
     
     UIView *hot1 = [[UIView alloc] init];
-    hot1.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H, SCREEN_WIDTH - 10 * 2, 93);
+    hot1.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H, SCREEN_WIDTH - 10 * 2, hot_h);
     hot1.backgroundColor = [UIColor whiteColor];
     hot1.layer.borderColor = RGBCOLOR(0xe3, 0xe6, 0xe9).CGColor;
     hot1.layer.borderWidth = 0.5;
@@ -294,33 +296,77 @@
     [tstBtn setImage:[UIImage imageNamed:@"tstBtn1.png"] forState:UIControlStateNormal];
     [tstBtn setImage:[UIImage imageNamed:@"tstBtn2.png" ] forState:UIControlStateHighlighted];
     [hot1 addSubview:tstBtn];
-}
-
-- (void)createDMS
-{
+    
+    //////////////
     UIView *hot2 = [[UIView alloc] init];
-    hot2.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H + 93 + 3, SCREEN_WIDTH - 10 * 2, 93);
+    hot2.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H + hot_h, SCREEN_WIDTH - 10 * 2, hot_h);
     hot2.backgroundColor = [UIColor whiteColor];
     hot2.layer.borderColor = RGBCOLOR(0xe3, 0xe6, 0xe9).CGColor;
     hot2.layer.borderWidth = 0.5;
     [mainView addSubview:hot2];
     
+    UIImageView *hot2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testTst2.png"]];
+    hot2Img.frame = CGRectMake(4, 4, 140, 85);
+    [hot2 addSubview:hot2Img];
+    
+    UILabel *hot2Title = [[UILabel alloc] init];
+    hot2Title.text = @"双廊的庭院酒店临海有情调";
+    hot2Title.font = [UIFont boldSystemFontOfSize:15];
+    hot2Title.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10, 20, 140, 14);
+    [hot2 addSubview:hot2Title];
+    
+    UILabel *hot2Txt1 = [[UILabel alloc] init];
+    hot2Txt1.text = @"已融";
+    hot2Txt1.font = [UIFont boldSystemFontOfSize:12];
+    hot2Txt1.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10, 50, 24, 12);
+    [hot2 addSubview:hot2Txt1];
+    
+    UILabel *hot2Txt2 = [[UILabel alloc] init];
+    hot2Txt2.text = @"80.02%";
+    hot2Txt2.textColor = RGBCOLOR(0xff, 0x66, 0x33);
+    hot2Txt2.font = [UIFont boldSystemFontOfSize:12];
+    hot2Txt2.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10 + 24 + 4, 50, 60, 12);
+    [hot2 addSubview:hot2Txt2];
+    
+    UILabel *hot2Txt3 = [[UILabel alloc] init];
+    hot2Txt3.text = @"8天后结束";
+    hot2Txt3.font = [UIFont boldSystemFontOfSize:12];
+    hot2Txt3.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10, 50 + 18, 72, 12);
+    [hot2 addSubview:hot2Txt3];
+    
+    UIButton *tstBtn2 = [[UIButton alloc] init];
+    tstBtn2.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
+    [tstBtn2 setImage:[UIImage imageNamed:@"tstBtn1.png"] forState:UIControlStateNormal];
+    [tstBtn2 setImage:[UIImage imageNamed:@"tstBtn2.png" ] forState:UIControlStateHighlighted];
+    [hot2 addSubview:tstBtn2];
+}
+
+- (void)createDMS
+{
+    
+    UIView *hot1 = [[UIView alloc] init];
+    hot1.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H + hot_h * 2 + GAP_BETWEEN_HOT, SCREEN_WIDTH - 10 * 2, hot_h);
+    hot1.backgroundColor = [UIColor whiteColor];
+    hot1.layer.borderColor = RGBCOLOR(0xe3, 0xe6, 0xe9).CGColor;
+    hot1.layer.borderWidth = 0.5;
+    [mainView addSubview:hot1];
+    
     UIImageView *hot1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testDms.png"]];
     hot1Img.frame = CGRectMake(4, 4, 140, 85);
-    [hot2 addSubview:hot1Img];
+    [hot1 addSubview:hot1Img];
     
     UILabel *hot1Title = [[UILabel alloc] init];
     hot1Title.text = @"总有轮回总有平静的时候";
     hot1Title.font = [UIFont boldSystemFontOfSize:15];
     hot1Title.frame = CGRectMake(hot1Img.frame.origin.x + 140 + 10, 20, 140, 14);
-    [hot2 addSubview:hot1Title];
+    [hot1 addSubview:hot1Title];
     
     UILabel *hot1Txt1 = [[UILabel alloc] init];
     hot1Txt1.text = @"等待上线";
     hot1Txt1.textColor = RGBCOLOR(0x6a, 0x6a, 0x6a);
     hot1Txt1.font = [UIFont boldSystemFontOfSize:14];
     hot1Txt1.frame = CGRectMake(hot1Img.frame.origin.x + 140 + 10, 50, 100, 12);
-    [hot2 addSubview:hot1Txt1];
+    [hot1 addSubview:hot1Txt1];
     
     
     UILabel *hot1Txt2 = [[UILabel alloc] init];
@@ -328,20 +374,61 @@
     hot1Txt2.text = @"10天08:08:08";
     hot1Txt2.font = [UIFont boldSystemFontOfSize:12];
     hot1Txt2.frame = CGRectMake(hot1Img.frame.origin.x + 140 + 10, 50 + 18, 140, 12);
-    [hot2 addSubview:hot1Txt2];
+    [hot1 addSubview:hot1Txt2];
     
     UIButton *tstBtn = [[UIButton alloc] init];
     tstBtn.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
     [tstBtn setImage:[UIImage imageNamed:@"dmsBtn1.png"] forState:UIControlStateNormal];
     [tstBtn setImage:[UIImage imageNamed:@"dmsBtn2.png" ] forState:UIControlStateHighlighted];
-    [hot2 addSubview:tstBtn];
+    [hot1 addSubview:tstBtn];
+    
+    ////////////////////
+    
+    UIView *hot2 = [[UIView alloc] init];
+    hot2.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H + hot_h * 2 + hot_h + GAP_BETWEEN_HOT, SCREEN_WIDTH - 10 * 2, hot_h);
+    hot2.backgroundColor = [UIColor whiteColor];
+    hot2.layer.borderColor = RGBCOLOR(0xe3, 0xe6, 0xe9).CGColor;
+    hot2.layer.borderWidth = 0.5;
+    [mainView addSubview:hot2];
+    
+    UIImageView *hot2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testDms2.png"]];
+    hot2Img.frame = CGRectMake(4, 4, 140, 85);
+    [hot2 addSubview:hot2Img];
+    
+    UILabel *hot2Title = [[UILabel alloc] init];
+    hot2Title.text = @"总有轮回总有平静的时候";
+    hot2Title.font = [UIFont boldSystemFontOfSize:15];
+    hot2Title.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10, 20, 140, 14);
+    [hot2 addSubview:hot2Title];
+    
+    UILabel *hot2Txt1 = [[UILabel alloc] init];
+    hot2Txt1.text = @"等待上线";
+    hot2Txt1.textColor = RGBCOLOR(0x6a, 0x6a, 0x6a);
+    hot2Txt1.font = [UIFont boldSystemFontOfSize:14];
+    hot2Txt1.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10, 50, 100, 12);
+    [hot2 addSubview:hot2Txt1];
+    
+    
+    UILabel *hot2Txt2 = [[UILabel alloc] init];
+    hot2Txt2.textColor = RGBCOLOR(0xff, 0x66, 0x33);
+    hot2Txt2.text = @"10天08:08:08";
+    hot2Txt2.font = [UIFont boldSystemFontOfSize:12];
+    hot2Txt2.frame = CGRectMake(hot2Img.frame.origin.x + 140 + 10, 50 + 18, 140, 12);
+    [hot2 addSubview:hot2Txt2];
+    
+    UIButton *tstBtn2 = [[UIButton alloc] init];
+    tstBtn2.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
+    [tstBtn2 setImage:[UIImage imageNamed:@"dmsBtn1.png"] forState:UIControlStateNormal];
+    [tstBtn2 setImage:[UIImage imageNamed:@"dmsBtn2.png" ] forState:UIControlStateHighlighted];
+    [hot2 addSubview:tstBtn2];
+    
 }
 
 #pragma mark - press four btns
 - (void)pressBtn:(UIButton *)sender
 {
-    int tag = sender.tag - FOURBTN_TAG_OFFSET;
-    NSLog(@"%d", tag);
+    NSUInteger tag = sender.tag - FOURBTN_TAG_OFFSET;
+    NSLog(@"%lu", (long unsigned)tag);
     UIViewController *vc2SubVc = [[UIViewController alloc] init];
     UIView *vc2subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [vc2SubVc.view addSubview:vc2subView];
@@ -408,14 +495,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

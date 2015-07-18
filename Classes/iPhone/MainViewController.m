@@ -130,9 +130,18 @@
 {
     NSLog(@"mid press!");
     
-    [SharedAppDelegate.oyeNavigationVc pushViewController:tmpVc animated:YES];
+    [UIView  beginAnimations:nil context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.75];
+    
+    [SharedAppDelegate.oyeNavigationVc pushViewController:tmpVc animated:NO];
     
     [SharedAppDelegate.oyeNavigationVc.navigationBar setHidden:NO];
+    
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.navigationController.view cache:NO];
+    [UIView commitAnimations];
+    
+    NSLog(@"%@", self.navigationController.childViewControllers);
 }
 
 - (void)tabBarDidTapped:(id)sender
