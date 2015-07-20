@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B0247521B5CF109008B05D7 /* icon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B02474F1B5CF109008B05D7 /* icon60@2x.png */; };
+		9B0247531B5CF109008B05D7 /* icon30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B0247501B5CF109008B05D7 /* icon30@2x.png */; };
+		9B0247541B5CF109008B05D7 /* icon29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B0247511B5CF109008B05D7 /* icon29@2x.png */; };
+		9B0247581B5D30ED008B05D7 /* ExplorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0247571B5D30ED008B05D7 /* ExplorViewController.m */; };
 		9B0691131B57F55900D65549 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0691121B57F55900D65549 /* CustomTabBar.m */; };
 		9B06911A1B58183200D65549 /* nav5p.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B0691141B58183200D65549 /* nav5p.png */; };
 		9B06911B1B58183200D65549 /* nav5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B0691151B58183200D65549 /* nav5.png */; };
@@ -45,6 +49,13 @@
 		9B71604F1B1C4DA5009A41CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B71604D1B1C4DA5009A41CE /* Main.storyboard */; };
 		9B7160511B1C4DA5009A41CE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B7160501B1C4DA5009A41CE /* Images.xcassets */; };
 		9B7160541B1C4DA5009A41CE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7160521B1C4DA5009A41CE /* LaunchScreen.xib */; };
+		9B7743E31B5A935100ED6647 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7743E21B5A935100ED6647 /* PostViewController.m */; };
+		9B7743EB1B5B9BCD00ED6647 /* testPostBtn5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B7743E51B5B9BCD00ED6647 /* testPostBtn5.png */; };
+		9B7743EC1B5B9BCD00ED6647 /* testPostBtn4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B7743E61B5B9BCD00ED6647 /* testPostBtn4.png */; };
+		9B7743ED1B5B9BCD00ED6647 /* testPostBtn3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B7743E71B5B9BCD00ED6647 /* testPostBtn3.png */; };
+		9B7743EE1B5B9BCD00ED6647 /* testPostBtn2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B7743E81B5B9BCD00ED6647 /* testPostBtn2.png */; };
+		9B7743EF1B5B9BCD00ED6647 /* testPostBtn1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B7743E91B5B9BCD00ED6647 /* testPostBtn1.png */; };
+		9B7743F01B5B9BCD00ED6647 /* testPostBtn0.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B7743EA1B5B9BCD00ED6647 /* testPostBtn0.png */; };
 		9B8653161B54A914007732F5 /* GuanZhuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8653151B54A914007732F5 /* GuanZhuViewController.m */; };
 		9B8653191B54B3EA007732F5 /* oyeLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8653181B54B3EA007732F5 /* oyeLogo.png */; };
 		9B88271D1B4CD2E70033CB9B /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B88271C1B4CD2E70033CB9B /* WelcomeViewController.m */; };
@@ -52,6 +63,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B02474F1B5CF109008B05D7 /* icon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon60@2x.png"; sourceTree = "<group>"; };
+		9B0247501B5CF109008B05D7 /* icon30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon30@2x.png"; sourceTree = "<group>"; };
+		9B0247511B5CF109008B05D7 /* icon29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon29@2x.png"; sourceTree = "<group>"; };
+		9B0247561B5D30ED008B05D7 /* ExplorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExplorViewController.h; sourceTree = "<group>"; };
+		9B0247571B5D30ED008B05D7 /* ExplorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplorViewController.m; sourceTree = "<group>"; };
 		9B0691111B57F55900D65549 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
 		9B0691121B57F55900D65549 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
 		9B0691141B58183200D65549 /* nav5p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav5p.png; sourceTree = "<group>"; };
@@ -98,6 +114,14 @@
 		9B71604E1B1C4DA5009A41CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B7160501B1C4DA5009A41CE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../oye2/Images.xcassets; sourceTree = "<group>"; };
 		9B7160531B1C4DA5009A41CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9B7743E11B5A935100ED6647 /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		9B7743E21B5A935100ED6647 /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		9B7743E51B5B9BCD00ED6647 /* testPostBtn5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPostBtn5.png; sourceTree = "<group>"; };
+		9B7743E61B5B9BCD00ED6647 /* testPostBtn4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPostBtn4.png; sourceTree = "<group>"; };
+		9B7743E71B5B9BCD00ED6647 /* testPostBtn3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPostBtn3.png; sourceTree = "<group>"; };
+		9B7743E81B5B9BCD00ED6647 /* testPostBtn2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPostBtn2.png; sourceTree = "<group>"; };
+		9B7743E91B5B9BCD00ED6647 /* testPostBtn1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPostBtn1.png; sourceTree = "<group>"; };
+		9B7743EA1B5B9BCD00ED6647 /* testPostBtn0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPostBtn0.png; sourceTree = "<group>"; };
 		9B8653141B54A914007732F5 /* GuanZhuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuViewController.h; sourceTree = "<group>"; };
 		9B8653151B54A914007732F5 /* GuanZhuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuanZhuViewController.m; sourceTree = "<group>"; };
 		9B8653181B54B3EA007732F5 /* oyeLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oyeLogo.png; sourceTree = "<group>"; };
@@ -118,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B0247551B5D30D6008B05D7 /* explor */ = {
+			isa = PBXGroup;
+			children = (
+				9B0247561B5D30ED008B05D7 /* ExplorViewController.h */,
+				9B0247571B5D30ED008B05D7 /* ExplorViewController.m */,
+			);
+			path = explor;
+			sourceTree = "<group>";
+		};
 		9B0691101B57F54200D65549 /* customTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +179,8 @@
 		9B11A1161B26D7CC0098D665 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				9B0247551B5D30D6008B05D7 /* explor */,
+				9B7743E01B5A932200ED6647 /* poststh */,
 				9B0691101B57F54200D65549 /* customTabBar */,
 				9B8653131B54A6FF007732F5 /* guanzhu */,
 				9B88271A1B4CD2D30033CB9B /* welcome */,
@@ -177,6 +212,16 @@
 				9B8653171B54B2E1007732F5 /* iPhone */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		9B613BDC1B5CBE830059648D /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				9B02474F1B5CF109008B05D7 /* icon60@2x.png */,
+				9B0247501B5CF109008B05D7 /* icon30@2x.png */,
+				9B0247511B5CF109008B05D7 /* icon29@2x.png */,
+			);
+			name = icon;
 			sourceTree = "<group>";
 		};
 		9B7160371B1C4DA5009A41CE = {
@@ -217,6 +262,28 @@
 			path = oye2;
 			sourceTree = "<group>";
 		};
+		9B7743E01B5A932200ED6647 /* poststh */ = {
+			isa = PBXGroup;
+			children = (
+				9B7743E11B5A935100ED6647 /* PostViewController.h */,
+				9B7743E21B5A935100ED6647 /* PostViewController.m */,
+			);
+			path = poststh;
+			sourceTree = "<group>";
+		};
+		9B7743E41B5B9BAC00ED6647 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				9B7743E51B5B9BCD00ED6647 /* testPostBtn5.png */,
+				9B7743E61B5B9BCD00ED6647 /* testPostBtn4.png */,
+				9B7743E71B5B9BCD00ED6647 /* testPostBtn3.png */,
+				9B7743E81B5B9BCD00ED6647 /* testPostBtn2.png */,
+				9B7743E91B5B9BCD00ED6647 /* testPostBtn1.png */,
+				9B7743EA1B5B9BCD00ED6647 /* testPostBtn0.png */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		9B8653131B54A6FF007732F5 /* guanzhu */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +296,8 @@
 		9B8653171B54B2E1007732F5 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				9B613BDC1B5CBE830059648D /* icon */,
+				9B7743E41B5B9BAC00ED6647 /* test */,
 				9B0691301B58F35100D65549 /* testTst2.png */,
 				9B0691311B58F35100D65549 /* testDms2.png */,
 				9B0691281B58F34900D65549 /* testbanner1.png */,
@@ -343,7 +412,10 @@
 				9B3E34541B564234003BA73A /* dmsBtn2.png in Resources */,
 				9B3E34531B564234003BA73A /* tstBtn1.png in Resources */,
 				9B0691251B589F3F00D65549 /* nav3.png in Resources */,
+				9B7743ED1B5B9BCD00ED6647 /* testPostBtn3.png in Resources */,
 				9B3E34581B564234003BA73A /* wdtzBtn2.png in Resources */,
+				9B0247541B5CF109008B05D7 /* icon29@2x.png in Resources */,
+				9B7743EF1B5B9BCD00ED6647 /* testPostBtn1.png in Resources */,
 				9B8653191B54B3EA007732F5 /* oyeLogo.png in Resources */,
 				9B3E345D1B564234003BA73A /* zxxlBtn1.png in Resources */,
 				9B3E34571B564234003BA73A /* ljdlBtn1.png in Resources */,
@@ -351,6 +423,8 @@
 				9B3E34641B572CE6003BA73A /* nav1p.png in Resources */,
 				9B06911E1B58183200D65549 /* nav3p.png in Resources */,
 				9B06912F1B58F34900D65549 /* testbanner2.png in Resources */,
+				9B7743EE1B5B9BCD00ED6647 /* testPostBtn2.png in Resources */,
+				9B0247521B5CF109008B05D7 /* icon60@2x.png in Resources */,
 				9B0691261B589F3F00D65549 /* nav2.png in Resources */,
 				9B3E345A1B564234003BA73A /* fhxlBtn2.png in Resources */,
 				9B0691241B589F3F00D65549 /* nav4.png in Resources */,
@@ -368,9 +442,13 @@
 				9B3E34551B564234003BA73A /* dmsBtn1.png in Resources */,
 				9B3E345C1B564234003BA73A /* zxxlBtn2.png in Resources */,
 				9B3E345B1B564234003BA73A /* fhxlBtn1.png in Resources */,
+				9B0247531B5CF109008B05D7 /* icon30@2x.png in Resources */,
 				9B0691331B58F35100D65549 /* testDms2.png in Resources */,
 				9B3E34561B564234003BA73A /* ljdlBtn2.png in Resources */,
 				9B7160511B1C4DA5009A41CE /* Images.xcassets in Resources */,
+				9B7743EB1B5B9BCD00ED6647 /* testPostBtn5.png in Resources */,
+				9B7743EC1B5B9BCD00ED6647 /* testPostBtn4.png in Resources */,
+				9B7743F01B5B9BCD00ED6647 /* testPostBtn0.png in Resources */,
 				9B3E34521B564234003BA73A /* tstBtn2.png in Resources */,
 				9B06912E1B58F34900D65549 /* testbanner3.png in Resources */,
 			);
@@ -387,7 +465,9 @@
 				9B71604C1B1C4DA5009A41CE /* ViewController.m in Sources */,
 				9BDDC27C1B3A403700258236 /* RecommendationViewController.m in Sources */,
 				9B7160491B1C4DA5009A41CE /* AppDelegate.m in Sources */,
+				9B0247581B5D30ED008B05D7 /* ExplorViewController.m in Sources */,
 				9B7160461B1C4DA5009A41CE /* main.m in Sources */,
+				9B7743E31B5A935100ED6647 /* PostViewController.m in Sources */,
 				9B11A11D1B288C090098D665 /* MainViewController.m in Sources */,
 				9B8653161B54A914007732F5 /* GuanZhuViewController.m in Sources */,
 				9B88271D1B4CD2E70033CB9B /* WelcomeViewController.m in Sources */,

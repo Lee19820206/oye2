@@ -9,7 +9,14 @@
 #import "MainViewController.h"
 #import "GuanZhuViewController.h"
 #import "CustomTabBar.h"
-#import "WelcomeViewController.h"
+#import "PostViewController.h"
+
+static const int TAB_W = 33;
+static const int MID_BTN_W = 45;
+static const int PADDING = 20;
+static const int BTN_NUM = 4;
+static const int TAB_PADDING_TOP = 5;
+static const int TAB_H = 40;
 
 @interface MainViewController ()
 {
@@ -22,10 +29,11 @@
     
     GuanZhuViewController *guanzhuVc;
   
-    WelcomeViewController *tmpVc;
+    PostViewController *tmpVc;
     UIView *oye2TabBar;
     NSMutableArray *customTabBarItems;
     UIButton *midButton;
+    PostViewController *postVc;
     
 }
 @end
@@ -77,6 +85,9 @@
     naviVc.navigationBarHidden = YES;
     
     
+    
+    float gap = (SCREEN_WIDTH - TAB_W * BTN_NUM - PADDING * 2 - MID_BTN_W) / BTN_NUM;
+    
     for (int i = 0; i < 4; i++) {
         
         NSString *normalImageStr = [NSString stringWithFormat:@"nav%d.png", i+1];
@@ -90,25 +101,19 @@
         
         if (i == 0) {
             [oyeTab switchToSelectedState];
-            oyeTab.frame = CGRectMake(20, 5, 33, 40);
+            oyeTab.frame = CGRectMake(PADDING, TAB_PADDING_TOP, TAB_W, TAB_H);
         } else if (i == 1){
-             oyeTab.frame = CGRectMake(73, 5, 33, 40);
+            oyeTab.frame = CGRectMake(PADDING + gap + TAB_W, TAB_PADDING_TOP, TAB_W, TAB_H);
         } else if (i == 2){
-            oyeTab.frame = CGRectMake(SCREEN_WIDTH - 20 - 33 - 33 - 20, 5, 33, 40);
+            oyeTab.frame = CGRectMake(PADDING + MID_BTN_W + TAB_W * i + gap * (i + 1), TAB_PADDING_TOP, TAB_W, TAB_H);
         } else if (i == 3){
-            oyeTab.frame = CGRectMake(SCREEN_WIDTH - 20 - 33, 5, 33, 40);
+            oyeTab.frame = CGRectMake(PADDING + MID_BTN_W + TAB_W * i + gap * (i + 1), TAB_PADDING_TOP, TAB_W, TAB_H);
         }
         
         [oye2TabBar addSubview:oyeTab];
     }
  
-//    tmpVc = [[UIViewController alloc] init];
-//    UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//    tmpView.backgroundColor = RGBCOLOR(230, 141, 94);
-//    [tmpVc.view addSubview:tmpView];
-    tmpVc = [[WelcomeViewController alloc] init];
-    
-    
+        
     self.viewControllers = [NSArray arrayWithObjects:vc1, naviVc, vc2, vc3, nil];
     self.selectedViewController = vc1;
 
@@ -129,19 +134,26 @@
 - (void)pressMidButton:(UIButton *)sender
 {
     NSLog(@"mid press!");
+    if (!postVc) {
+        postVc = [[PostViewController alloc] init];
+    }
+ 
+    UIView *postView = postVc.view;
+    [self.view addSubview:postView];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                              selector:@selector(cleanPostVc)
+                                                 name:EVENT_CLOSE_POST_VIEW
+                                                object:nil];
     
-    [UIView  beginAnimations:nil context:NULL];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [UIView setAnimationDuration:0.75];
-    
-    [SharedAppDelegate.oyeNavigationVc pushViewController:tmpVc animated:NO];
-    
-    [SharedAppDelegate.oyeNavigationVc.navigationBar setHidden:NO];
-    
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.navigationController.view cache:NO];
-    [UIView commitAnimations];
-    
-    NSLog(@"%@", self.navigationController.childViewControllers);
+    return;
+
+}
+
+- (void)cleanPostVc{
+    if (postVc.view.superview) {
+        [postVc.view removeFromSuperview];
+    }
+    postVc = nil;
 }
 
 - (void)tabBarDidTapped:(id)sender

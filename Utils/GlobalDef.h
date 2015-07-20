@@ -40,6 +40,10 @@
 //btn tag
 #define FOURBTN_TAG_OFFSET 1000
 
+//事件
+
+#define EVENT_CLOSE_POST_VIEW @"event_close_post_view"
+
 //字体
 #define ZBSTYLE1_font ([UIFont systemFontOfSize:18])
 #define ZBSTYLE2_font ([UIFont systemFontOfSize:17])
