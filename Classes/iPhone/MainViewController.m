@@ -10,6 +10,7 @@
 #import "GuanZhuViewController.h"
 #import "CustomTabBar.h"
 #import "PostViewController.h"
+#import "ExplorViewController.h"
 
 static const int TAB_W = 33;
 static const int MID_BTN_W = 45;
@@ -22,7 +23,7 @@ static const int TAB_H = 40;
 {
     UINavigationController *naviVc;
     UIViewController *vc1;
-    UINavigationController *vc2;
+    ExplorViewController *vc2;
     UIViewController *vc3;
     UIViewController *vc4;
     UIViewController *naviRootVc;
@@ -56,13 +57,7 @@ static const int TAB_H = 40;
     guanzhuVc = [[GuanZhuViewController alloc] init];
     vc1 = [[UINavigationController alloc] initWithRootViewController:guanzhuVc];
     
-    
-    UIViewController *vc2SubVc = [[UIViewController alloc] init];
-    UIView *vc2subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [vc2SubVc.view addSubview:vc2subView];
-    vc2subView.backgroundColor = RGBCOLOR(216, 45, 45);
-    vc2 = [[UINavigationController alloc] initWithRootViewController:vc2SubVc];
-    
+    vc2 = [[ExplorViewController alloc] init];
     
     vc3 = [[UIViewController alloc] init];
     vc4 = [[UIViewController alloc] init];
@@ -114,7 +109,7 @@ static const int TAB_H = 40;
     }
  
         
-    self.viewControllers = [NSArray arrayWithObjects:vc1, naviVc, vc2, vc3, nil];
+    self.viewControllers = [NSArray arrayWithObjects:vc1, vc2, naviVc, vc3, nil];
     self.selectedViewController = vc1;
 
     [self.tabBar setHidden:YES];
