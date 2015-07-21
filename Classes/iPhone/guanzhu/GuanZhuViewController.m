@@ -7,6 +7,7 @@
 //
 
 #import "GuanZhuViewController.h"
+#import "WelcomeViewController.h"
 
 #define BANNER_H 184
 #define BANNER_IMG_NUM 4
@@ -30,6 +31,8 @@ static const int hot_h = 93;
     UIPageControl *pageControl;
     BOOL pageControlUsed;
     CGFloat mainViewContentH;
+    long timerCount;
+    
 }
 
 @end
@@ -77,6 +80,10 @@ static const int hot_h = 93;
     pageControl.numberOfPages = BANNER_IMG_NUM;
     [pageControl addTarget:self action:@selector(pageChange:) forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:pageControl];
+    
+    //nstimer
+    timerCount = 0;
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(turnToNextPage) userInfo:nil repeats:YES];
     
     //create four btns
     [self createFourBtns];
@@ -178,10 +185,6 @@ static const int hot_h = 93;
     mainView.contentSize = CGSizeMake(SCREEN_WIDTH, mainViewContentH + 10);
     
     
-    
-    
-    
-    
     //head 顶部背景
     head = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEAD_H)];
     head.backgroundColor = RGBCOLOR(236, 236, 0xec);
@@ -201,6 +204,17 @@ static const int hot_h = 93;
     
     self.view.backgroundColor = [UIColor blueColor];
     // Do any additional setup after loading the view.
+}
+
+
+#pragma mark - Turn To Next Page
+- (void)turnToNextPage
+{
+    timerCount++;
+    if (timerCount >= BANNER_IMG_NUM) {
+        timerCount = 0;
+    }
+    [bannerHolder scrollRectToVisible:CGRectMake(timerCount * SCREEN_WIDTH, 0, SCREEN_WIDTH, BANNER_H) animated:YES];
 }
 
 #pragma mark - create four btns and bg
@@ -429,13 +443,13 @@ static const int hot_h = 93;
 {
     NSUInteger tag = sender.tag - FOURBTN_TAG_OFFSET;
     NSLog(@"%lu", (long unsigned)tag);
-    UIViewController *vc2SubVc = [[UIViewController alloc] init];
-    UIView *vc2subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [vc2SubVc.view addSubview:vc2subView];
-    vc2subView.backgroundColor = RGBCOLOR(216, 45, 45);
+    UIViewController *vc2SubVc = [[WelcomeViewController alloc] init];
+    //UIView *vc2subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    //[vc2SubVc.view addSubview:vc2subView];
+    //vc2subView.backgroundColor = RGBCOLOR(216, 45, 45);
     [SharedAppDelegate.oyeNavigationVc pushViewController:vc2SubVc animated:YES];
     NSLog(@"%@ vc in oyenavigationvc", SharedAppDelegate.oyeNavigationVc.childViewControllers);
-    [SharedAppDelegate.oyeNavigationVc.navigationBar setHidden:NO];
+    [SharedAppDelegate.oyeNavigationVc.navigationBar setHidden:YES];
     switch (tag) {
         //最新线路
         case 0:
@@ -465,8 +479,11 @@ static const int hot_h = 93;
 - (void)pageChange:(id)sender
 {
     long page = pageControl.currentPage;
+    NSLog(@"page %lu", page);
     [bannerHolder setContentOffset:CGPointMake(page * SCREEN_WIDTH, 0)];
     pageControlUsed = YES;
+    
+    timerCount = page;
     
 }
 
@@ -488,6 +505,7 @@ static const int hot_h = 93;
     }
     int page = floor((scrollView.contentOffset.x - SCREEN_WIDTH / 2) / SCREEN_WIDTH + 1);
     pageControl.currentPage = page;
+    timerCount = page;
 }
 
 - (void)didReceiveMemoryWarning {

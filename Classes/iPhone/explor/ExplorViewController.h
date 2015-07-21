@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTabBar.h"
 
-@interface ExplorViewController : UIViewController
+@interface ExplorViewController : UIViewController<Oye2CusTabBarDelegate>
 
 @end

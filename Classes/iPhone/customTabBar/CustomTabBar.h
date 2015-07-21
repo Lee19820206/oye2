@@ -22,6 +22,7 @@
 @property(nonatomic)int tabBarTag;
 @property(weak, nonatomic)id delegate;
 - (instancetype)initWithNormalStateImage:(UIImage *)normalStateImg andSelectedStateImage:(UIImage *)selectedImg;
+- (void)setBgWidth:(float)width andHeight:(float)height;
 
 - (void)switchToSelectedState;
 - (void)switchToNormalState;

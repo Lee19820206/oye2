@@ -12,11 +12,6 @@
     UIImage *normalStateBgImage;
     UIImage *selectedStateBgImage;
     UIImageView *bgImageView;
-//    UIImageView *tabBtn1;
-//    UIImageView *tabBtn2;
-//    UIImageView *tabBtn3;
-//    UIImageView *tabBtn4;
-//    UIImageView *tabBtn5;
 }
 
 @end
@@ -39,6 +34,14 @@
     [self addGestureRecognizer:tapGesture];
     
     return self;
+}
+
+- (void)setBgWidth:(float)width andHeight:(float)height
+{
+    CGRect f = bgImageView.frame;
+    f.size.width = width;
+    f.size.height = height;
+    bgImageView.frame = f;
 }
 
 - (void)switchToSelectedState
