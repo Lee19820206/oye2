@@ -266,7 +266,7 @@ static const int hot_h = 93;
 
 - (void)createTST
 {
-    //项目待秒杀
+    //项目天使投
     
     
     UIView *hot1 = [[UIView alloc] init];
@@ -311,6 +311,11 @@ static const int hot_h = 93;
     [tstBtn setImage:[UIImage imageNamed:@"tstBtn2.png" ] forState:UIControlStateHighlighted];
     [hot1 addSubview:tstBtn];
     
+    UIImageView *tstKid1 = [[UIImageView alloc] init];
+    tstKid1.frame = CGRectMake(hot1.frame.size.width - 20, 0, 20, 20);
+    [tstKid1 setImage:[UIImage imageNamed:@"tstKid.png"]];
+    [hot1 addSubview:tstKid1];
+    
     //////////////
     UIView *hot2 = [[UIView alloc] init];
     hot2.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H + hot_h, SCREEN_WIDTH - 10 * 2, hot_h);
@@ -353,11 +358,16 @@ static const int hot_h = 93;
     [tstBtn2 setImage:[UIImage imageNamed:@"tstBtn1.png"] forState:UIControlStateNormal];
     [tstBtn2 setImage:[UIImage imageNamed:@"tstBtn2.png" ] forState:UIControlStateHighlighted];
     [hot2 addSubview:tstBtn2];
+    
+    UIImageView *tstKid2 = [[UIImageView alloc] init];
+    tstKid2.frame = CGRectMake(hot2.frame.size.width - 20, 0, 20, 20);
+    [tstKid2 setImage:[UIImage imageNamed:@"tstKid.png"]];
+    [hot2 addSubview:tstKid2];
 }
 
 - (void)createDMS
 {
-    
+    //项目待秒杀
     UIView *hot1 = [[UIView alloc] init];
     hot1.frame = CGRectMake(10, 20 + BANNER_H + FOUR_BTNS_BG_H + hot_h * 2 + GAP_BETWEEN_HOT, SCREEN_WIDTH - 10 * 2, hot_h);
     hot1.backgroundColor = [UIColor whiteColor];
@@ -395,6 +405,11 @@ static const int hot_h = 93;
     [tstBtn setImage:[UIImage imageNamed:@"dmsBtn1.png"] forState:UIControlStateNormal];
     [tstBtn setImage:[UIImage imageNamed:@"dmsBtn2.png" ] forState:UIControlStateHighlighted];
     [hot1 addSubview:tstBtn];
+    
+    UIImageView *dmsKid1 = [[UIImageView alloc] init];
+    dmsKid1.frame = CGRectMake(hot1.frame.size.width - 20, 0, 20, 20);
+    [dmsKid1 setImage:[UIImage imageNamed:@"dmsKid.png"]];
+    [hot1 addSubview:dmsKid1];
     
     ////////////////////
     
@@ -435,6 +450,11 @@ static const int hot_h = 93;
     [tstBtn2 setImage:[UIImage imageNamed:@"dmsBtn1.png"] forState:UIControlStateNormal];
     [tstBtn2 setImage:[UIImage imageNamed:@"dmsBtn2.png" ] forState:UIControlStateHighlighted];
     [hot2 addSubview:tstBtn2];
+    
+    UIImageView *dmsKid2 = [[UIImageView alloc] init];
+    dmsKid2.frame = CGRectMake(hot2.frame.size.width - 20, 0, 20, 20);
+    [dmsKid2 setImage:[UIImage imageNamed:@"dmsKid.png"]];
+    [hot2 addSubview:dmsKid2];
     
 }
 
