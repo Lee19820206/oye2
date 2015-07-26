@@ -104,6 +104,7 @@
         self.mainVc = [[MainViewController alloc] init];
         
         self.oyeNavigationVc = [[UINavigationController alloc] initWithRootViewController:self.mainVc];
+        
         [oyeNavigationVc.navigationBar setHidden:YES];
         
         [self.window setRootViewController:self.oyeNavigationVc];

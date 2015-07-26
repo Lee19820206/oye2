@@ -10,14 +10,14 @@
 #import "OyePathTableViewCell.h"
 
 
-static const int HEAD_BTN_H = 24;
-static const int HEAD_BTN_W = 52;
-static const int HEAD_BTN_PADDING_TOP = 29;
+static const int HEAD_BTN_H = 30;
+static const int HEAD_BTN_W = 61;
+static const int HEAD_BTN_PADDING_TOP = 27;
 static const int BTN_TAB_OFFSET = 1000;
 static const int CAT_BAR_H = 34;
 static const int CAT_KID_W = 9;
 static const int CAT_KID_H = 6;
-
+static float catBarFontSize = 15.0;
 
 @interface ExplorViewController (){
     UIView *head;
@@ -25,7 +25,7 @@ static const int CAT_KID_H = 6;
     CustomTabBar *userBtn;
     UIView *catbar;
     int currentTag;
-    UIView *contentView;
+    UIScrollView *contentView;
     UIView *pathView;
     UIView *userView;
     UILabel *catLabelState;
@@ -41,6 +41,11 @@ static const int CAT_KID_H = 6;
     
     UITableView *catTableView;
     
+    int imgId;//just user for test;
+    
+    BOOL isOpenStateList;
+    BOOL isOpenSortList;
+    
     //NSArray *randImgs;
 }
 
@@ -51,10 +56,15 @@ static const int CAT_KID_H = 6;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    imgId =0;
+    isOpenStateList = NO;
+    isOpenSortList = NO;
+    
     [self fechStateAndSortAatas];
     
     [self createContentView];
     [self createPathView];
+    [self createUserView];
     
     [self createCatTableView];
     [self createHead];
@@ -89,7 +99,6 @@ static const int CAT_KID_H = 6;
         [catStateArray addObject:[testStateArray objectAtIndex:i]];
     }
     
-    
     len = [testSortArray count];
     if (catSortArray == nil) {
         catSortArray = [[NSMutableArray alloc] init];
@@ -98,9 +107,6 @@ static const int CAT_KID_H = 6;
     for (int i = 0; i < len; i++) {
         [catSortArray addObject:[testSortArray objectAtIndex:i]];
     }
-    
-    
-    
 }
 
 //创建路线和用户按钮
@@ -131,9 +137,18 @@ static const int CAT_KID_H = 6;
 
 - (void)createContentView
 {
-    contentView = [[UIView alloc] init];
+    contentView = [[UIScrollView alloc] init];
     contentView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    contentView.contentSize = CGSizeMake(SCREEN_WIDTH * 2, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    contentView.showsHorizontalScrollIndicator = NO;
+    contentView.showsVerticalScrollIndicator = NO;
+    contentView.pagingEnabled = YES;
+    contentView.delegate = self;
     contentView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
+    contentView.bounces = NO;
+    //contentView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    //contentView.con
     [self.view addSubview:contentView];
     
 }
@@ -141,9 +156,9 @@ static const int CAT_KID_H = 6;
 - (void)createPathView
 {
     pathView = [[UIView alloc] init];
-    pathView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    pathView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
     pathView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
-    [self.view addSubview:pathView];
+    [contentView addSubview:pathView];
     
     catbar = [[UIView alloc] init];
     catbar.backgroundColor = RGBCOLOR(0xf5, 0xf5, 0xf6);
@@ -153,19 +168,19 @@ static const int CAT_KID_H = 6;
     [pathView addSubview:catbar];
     
     
-    float labelWidth = 64.0;
-    float labelHeight = 16;
+    float labelWidth = catBarFontSize * 4;
+    float labelHeight = catBarFontSize;
     catLabelState = [[UILabel alloc] init];
     catLabelState.frame = CGRectMake((SCREEN_WIDTH / 2 - labelWidth) / 2, (CAT_BAR_H - labelHeight)/2, labelWidth, labelHeight);
     catLabelState.text = @"全部状态";
-    catLabelState.font = [UIFont systemFontOfSize:16];
+    catLabelState.font = [UIFont systemFontOfSize:catBarFontSize];
     catLabelState.textColor = RGBCOLOR(0x75, 0x75, 0x75);
     [catbar addSubview:catLabelState];
     
     catLabelSort = [[UILabel alloc] init];
     catLabelSort.frame = CGRectMake(SCREEN_WIDTH / 2 + (SCREEN_WIDTH / 2 - labelWidth) / 2, (CAT_BAR_H - labelHeight)/2, labelWidth, labelHeight);
     catLabelSort.text = @"默认排序";
-    catLabelSort.font = [UIFont systemFontOfSize:16];
+    catLabelSort.font = [UIFont systemFontOfSize:catBarFontSize];
     catLabelSort.textColor = RGBCOLOR(0x75, 0x75, 0x75);
     [catbar addSubview:catLabelSort];
     
@@ -173,10 +188,9 @@ static const int CAT_KID_H = 6;
     catStateBtn = [[UIButton alloc] init];
     catStateBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH/2, CAT_BAR_H);
     int gap = 5;
-    catStateBtn.imageEdgeInsets = UIEdgeInsetsMake((CAT_BAR_H - CAT_KID_H)/2, catLabelState.frame.origin.x + 64 + gap, (CAT_BAR_H - CAT_KID_H)/2, SCREEN_WIDTH/2 - catLabelState.frame.origin.x - 64 - CAT_KID_W - gap);
+    catStateBtn.imageEdgeInsets = UIEdgeInsetsMake((CAT_BAR_H - CAT_KID_H)/2, catLabelState.frame.origin.x + labelWidth + gap, (CAT_BAR_H - CAT_KID_H)/2, SCREEN_WIDTH/2 - catLabelState.frame.origin.x - labelWidth - CAT_KID_W - gap);
     [catStateBtn setImage:[UIImage imageNamed:@"catDown.png"] forState:UIControlStateNormal];
     [catbar addSubview:catStateBtn];
-    
     [catStateBtn addTarget:self action:@selector(pressCatBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     stateListView = [[UIView alloc] init];
@@ -215,7 +229,7 @@ static const int CAT_KID_H = 6;
 {
     if(catTableView == nil){
         catTableView = [[UITableView alloc] init];
-        catTableView.frame = CGRectMake(0, HEAD_H + CAT_BAR_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - CAT_BAR_H - TABBAR_H);
+        catTableView.frame = CGRectMake(0, CAT_BAR_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - CAT_BAR_H - TABBAR_H);
         [pathView addSubview:catTableView];
         catTableView.delegate = self;
         catTableView.dataSource = self;
@@ -223,20 +237,28 @@ static const int CAT_KID_H = 6;
     
     catTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.view addSubview:catTableView];
-    
-    
+    [contentView addSubview:catTableView];
 }
 
 - (void)createUserView
 {
+    userView = [[UIView alloc] init];
+    userView.backgroundColor = RGBCOLOR(0, 156, 156);
+    userView.frame = CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    [contentView addSubview:userView];
     
+    UILabel *txt = [[UILabel alloc] init];
+    txt.frame = CGRectMake(100, 50, 100, 16);
+    txt.textColor = [UIColor whiteColor];
+    txt.font = [UIFont systemFontOfSize:16];
+    txt.text = @"oops,404!!!";
+    [userView addSubview:txt];
 }
 
 #pragma mark - UITableView   Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 159.0 + 1.0 + 1.0;
+    return SCREEN_WIDTH / 2 + 1;
 }
 
 #pragma mark - UITableView    DataSource
@@ -250,13 +272,19 @@ static const int CAT_KID_H = 6;
     static NSString *pathTabelCell = @"LeePathTabelCell";
     OyePathTableViewCell *cell;
     cell = [catTableView dequeueReusableCellWithIdentifier:pathTabelCell];
+    
     if (cell == nil) {
         cell = [[OyePathTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pathTabelCell];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        NSString *lStr = [NSString stringWithFormat:@"testPathImg0%d.png", arc4random() % 16];
-        
-        NSString *rStr = [NSString stringWithFormat:@"testPathImg0%d.png", arc4random() % 16];
-        
+        if (imgId >= 6) {
+            imgId = 0;
+        }
+        NSString *lStr = [NSString stringWithFormat:@"testPathImg0%d.png", imgId];
+        //NSString *lStr = [NSString stringWithFormat:@"testPathImg0%d.png", arc4random() % 6];
+        imgId++;
+        NSString *rStr = [NSString stringWithFormat:@"testPathImg0%d.png", imgId];
+        //NSString *rStr = [NSString stringWithFormat:@"testPathImg0%d.png", arc4random() % 6];
+        imgId++;
         NSLog(@"%@ #### %@", lStr, rStr);
         [cell initWithType:PathTypeWaitting andImageLeft:[UIImage imageNamed:lStr] andImageRight:[UIImage imageNamed:rStr] andInfo:@"hello"];
     }
@@ -267,6 +295,11 @@ static const int CAT_KID_H = 6;
 #pragma mark - Press Cat Btn
 - (void)pressCatBtn:(UIButton *)btn
 {
+    if (isOpenStateList) {
+        isOpenStateList = !isOpenStateList;
+        
+    }
+    
     NSLog(@"press Cat Btn");
 }
 
@@ -284,23 +317,56 @@ static const int CAT_KID_H = 6;
     if (tag == 1) {
         [pathBtn switchToSelectedState];
         [userBtn switchToNormalState];
+        
         [self showPath];
     } else if (tag == 2){
         [userBtn switchToSelectedState];
         [pathBtn switchToNormalState];
+        
         [self showUser];
     }
 }
 
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    int page = floor((scrollView.contentOffset.x - SCREEN_WIDTH / 2) / SCREEN_WIDTH + 1);
+    //NSLog(@"page %d", page);
+    page = page + 1;//因为btn的tag是从1开始的；
+    if (page == (currentTag - BTN_TAB_OFFSET)) {
+        //NSLog(@"do not forever!!");
+        return;
+    }else{
+        //NSLog(@"do change user and path btns");
+        currentTag = page + BTN_TAB_OFFSET;
+    }
+    
+    if (currentTag == pathBtn.tabBarTag) {
+        [pathBtn switchToSelectedState];
+        [userBtn switchToNormalState];
+        
+    }else{
+        [userBtn switchToSelectedState];
+        [pathBtn switchToNormalState];
+        currentTag = userBtn.tabBarTag;
+    }
+    
+}
+
+
+
 #pragma mark - show Path OR User View
 - (void)showPath
 {
-    NSLog(@"show path vc!!");
+    [contentView scrollRectToVisible:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H) animated:YES];
+    //NSLog(@"show path vc!!");
 }
 
 - (void)showUser
 {
-    NSLog(@"show user vc!!");
+    [contentView scrollRectToVisible:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H) animated:YES];
+    //NSLog(@"show user vc!!");
 }
 
 

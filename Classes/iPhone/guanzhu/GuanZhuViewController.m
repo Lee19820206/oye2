@@ -9,8 +9,8 @@
 #import "GuanZhuViewController.h"
 #import "WelcomeViewController.h"
 
-#define BANNER_H 184
-#define BANNER_IMG_NUM 4
+
+#define BANNER_IMG_NUM 8
 #define FOUR_BTNS_BG_H 80
 #define FOUT_BTNS_PADDING 32
 #define GAP_BANNER_AND_FOURBTN 20
@@ -20,7 +20,8 @@
 #define DATA_H 60
 
 static const int hot_h = 93;
-
+static float BANNER_H;
+static float zanKidW = 24;
 
 @interface GuanZhuViewController (){
     UIView *head;
@@ -42,6 +43,8 @@ static const int hot_h = 93;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    BANNER_H = SCREEN_WIDTH * 430 / 750;
+    
     self.navigationController.navigationBarHidden = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;  //scrollview 顶部留白
     
@@ -60,7 +63,7 @@ static const int hot_h = 93;
     bannerHolder.contentSize = CGSizeMake(SCREEN_WIDTH * BANNER_IMG_NUM, BANNER_H);
     bannerHolder.backgroundColor = ARGBCOLOR(0xff, 0xff, 0, 0x12);
     bannerHolder.showsHorizontalScrollIndicator = NO;
-    bannerHolder.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    //bannerHolder.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     bannerHolder.showsVerticalScrollIndicator = NO;
     bannerHolder.pagingEnabled = YES;
     bannerHolder.delegate = self;
@@ -69,14 +72,14 @@ static const int hot_h = 93;
     
     //generate banner images
     for (int i = 0; i < BANNER_IMG_NUM; i++) {
-        UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"testbanner%d.png", i+1]]];
+        UIImageView *tempView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"750-430banner%d.png", i+1]]];
         tempView.frame = CGRectMake(i * SCREEN_WIDTH, 0, SCREEN_WIDTH, BANNER_H);
         [bannerHolder addSubview:tempView];
     }
     
     //create pageControl
     pageControl = [[UIPageControl alloc] init];
-    pageControl.frame = CGRectMake(0, BANNER_H - 50, SCREEN_WIDTH, 50);
+    pageControl.frame = CGRectMake(0, BANNER_H - 54, SCREEN_WIDTH, 50);
     pageControl.numberOfPages = BANNER_IMG_NUM;
     [pageControl addTarget:self action:@selector(pageChange:) forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:pageControl];
@@ -312,7 +315,7 @@ static const int hot_h = 93;
     [hot1 addSubview:tstBtn];
     
     UIImageView *tstKid1 = [[UIImageView alloc] init];
-    tstKid1.frame = CGRectMake(hot1.frame.size.width - 20, 0, 20, 20);
+    tstKid1.frame = CGRectMake(hot1.frame.size.width - zanKidW, 0, zanKidW, zanKidW);
     [tstKid1 setImage:[UIImage imageNamed:@"tstKid.png"]];
     [hot1 addSubview:tstKid1];
     
@@ -360,7 +363,7 @@ static const int hot_h = 93;
     [hot2 addSubview:tstBtn2];
     
     UIImageView *tstKid2 = [[UIImageView alloc] init];
-    tstKid2.frame = CGRectMake(hot2.frame.size.width - 20, 0, 20, 20);
+    tstKid2.frame = CGRectMake(hot2.frame.size.width - zanKidW, 0, zanKidW, zanKidW);
     [tstKid2 setImage:[UIImage imageNamed:@"tstKid.png"]];
     [hot2 addSubview:tstKid2];
 }
@@ -407,7 +410,7 @@ static const int hot_h = 93;
     [hot1 addSubview:tstBtn];
     
     UIImageView *dmsKid1 = [[UIImageView alloc] init];
-    dmsKid1.frame = CGRectMake(hot1.frame.size.width - 20, 0, 20, 20);
+    dmsKid1.frame = CGRectMake(hot1.frame.size.width - zanKidW, 0, zanKidW, zanKidW);
     [dmsKid1 setImage:[UIImage imageNamed:@"dmsKid.png"]];
     [hot1 addSubview:dmsKid1];
     
@@ -452,7 +455,7 @@ static const int hot_h = 93;
     [hot2 addSubview:tstBtn2];
     
     UIImageView *dmsKid2 = [[UIImageView alloc] init];
-    dmsKid2.frame = CGRectMake(hot2.frame.size.width - 20, 0, 20, 20);
+    dmsKid2.frame = CGRectMake(hot2.frame.size.width - zanKidW, 0, zanKidW, zanKidW);
     [dmsKid2 setImage:[UIImage imageNamed:@"dmsKid.png"]];
     [hot2 addSubview:dmsKid2];
     

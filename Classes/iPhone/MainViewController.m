@@ -43,6 +43,14 @@ static const int TAB_H = 40;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    /*
+     *去除顶部留白问题，当exploreVc里面的图片按钮点击以后由根navigationvc  push一个welcomeVc，
+     *然后点击back按钮pop welcomeVc，回到exploreVc时候,会出现顶部留白的问题。在explore将这个
+     *属性设置为NO不能解决，在根navigationvc设置NO也不能解决，只有这里设置才能解决。具体原因还不是很明白。
+     ********************************************
+     */
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;//设置这个属性也是可行的。
     customTabBarItems = [[NSMutableArray alloc] init];
     
     oye2TabBar = [[UIView alloc] init];
@@ -178,6 +186,7 @@ static const int TAB_H = 40;
     NSLog(@"viewWillAppear");
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    //self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)viewWillLayoutSubviews

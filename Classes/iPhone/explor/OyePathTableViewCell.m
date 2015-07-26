@@ -12,11 +12,11 @@
 static NSUInteger IMG_W = 159;
 static NSUInteger IMG_H = 159;
 static NSUInteger PATH_TABLE_OFFSET_TAG = 3000;
-static NSUInteger KID_W = 20;
-static NSUInteger KID_H = 20;
+static NSUInteger KID_W = 24;
+static NSUInteger KID_H = 24;
 
-static NSUInteger ZAN_KID_W = 11;
-static NSUInteger ZAN_KID_H = 10;
+static NSUInteger ZAN_KID_W = 12;
+static NSUInteger ZAN_KID_H = 11;
 static NSUInteger GAP_ZAN = 55;
 static NSUInteger ZAN_PADDING_TOP = 10;
 static NSUInteger LABEL_W = 50;
@@ -49,6 +49,9 @@ static NSUInteger LABEL_W = 50;
 
 - (void)initWithType:(PathType)typa andImageLeft:(UIImage *)imgLeft andImageRight:(UIImage *)imgRight andInfo:(NSString *)information
 {
+    IMG_W = SCREEN_WIDTH / 2 - 1;
+    IMG_H = IMG_W;
+    
     NSArray *typas = @[@"dmsKid", @"tstKid", @"finishedKid", @"joinKid", @"playingKid"];
     
     if (leftImgView == nil) {
@@ -162,7 +165,7 @@ static NSUInteger LABEL_W = 50;
 - (void)pressBtn:(UIButton *)btn
 {
     NSUInteger tag = btn.tag - PATH_TABLE_OFFSET_TAG;
-    NSLog(@"path_table_btn_tag: %d", tag);
+    NSLog(@"path_table_btn_tag: %d", (int)tag);
     
     WelcomeViewController *vc = [[WelcomeViewController alloc] init];
     [SharedAppDelegate.oyeNavigationVc pushViewController:vc animated:YES];

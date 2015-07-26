@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CustomTabBar.h"
 
-@interface ExplorViewController : UIViewController <Oye2CusTabBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ExplorViewController : UIViewController <Oye2CusTabBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @end
