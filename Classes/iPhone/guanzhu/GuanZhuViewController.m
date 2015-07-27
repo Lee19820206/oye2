@@ -20,7 +20,7 @@
 #define HOT_SPAN 10
 #define DATA_H 60
 
-static const int hot_h = 93;
+static float hot_h = 93;
 static float BANNER_H;
 static float zanKidW = 24;
 static float hotPaddingTop = 10;
@@ -56,16 +56,21 @@ static float hotImgHeight = 85;
     
     hotImgWidth = 165 * SCREEN_WIDTH / 375;
     hotImgHeight = 100 * SCREEN_WIDTH / 375;
+    hot_h = hotImgHeight + hotImgPaddingTop * 2;
     
     self.navigationController.navigationBarHidden = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;  //scrollview 顶部留白
     
     
     mainView = [[UIScrollView alloc] init];
-    mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    //mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    //mainView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H);
+    mainView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     mainView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
     
     mainView.showsHorizontalScrollIndicator = YES;
+    mainView.scrollIndicatorInsets = UIEdgeInsetsMake(HEAD_H, 0, TABBAR_H, 0);
+    mainView.contentInset = UIEdgeInsetsMake(HEAD_H, 0, TABBAR_H, 0);
     [self.view addSubview:mainView];
     
     
@@ -80,6 +85,7 @@ static float hotImgHeight = 85;
     bannerHolder.pagingEnabled = YES;
     bannerHolder.delegate = self;
     bannerHolder.bounces = NO;
+    
     [mainView addSubview:bannerHolder];
     
     //generate banner images
@@ -91,7 +97,7 @@ static float hotImgHeight = 85;
     
     //create pageControl
     pageControl = [[UIPageControl alloc] init];
-    pageControl.frame = CGRectMake(0, BANNER_H - 54, SCREEN_WIDTH, 50);
+    pageControl.frame = CGRectMake(0, BANNER_H - 37, SCREEN_WIDTH, 50);
     pageControl.numberOfPages = BANNER_IMG_NUM;
     [pageControl addTarget:self action:@selector(pageChange:) forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:pageControl];
@@ -110,7 +116,7 @@ static float hotImgHeight = 85;
     [self createDMS];
     
     UIView *datasView = [[UIView alloc] init];
-    datasView.frame = CGRectMake(10, BANNER_H + FOUR_BTNS_BG_H + hotPaddingTop + (GAP_BETWEEN_HOT + HOT_H * 2) * 2, SCREEN_WIDTH - HOT_SPAN * 2, DATA_H * 2);
+    datasView.frame = CGRectMake(10, BANNER_H + FOUR_BTNS_BG_H + hotPaddingTop + (GAP_BETWEEN_HOT + hot_h * 2) * 2, SCREEN_WIDTH - HOT_SPAN * 2, DATA_H * 2);
     datasView.backgroundColor = [UIColor whiteColor];
     datasView.layer.borderColor = RGBCOLOR(0xe3, 0xe6, 0xe9).CGColor;
     datasView.layer.borderWidth = 0.5;
@@ -143,7 +149,7 @@ static float hotImgHeight = 85;
     UILabel *data1Txt = [[UILabel alloc] init];
     data1Txt.frame = CGRectMake(10, 10, (datasView.frame.size.width - 10 * 2) / 2, 20);
     data1Txt.text = @"1688888888";
-    data1Txt.font = [UIFont systemFontOfSize:fontSize];
+    data1Txt.font = [UIFont boldSystemFontOfSize:fontSize];
     data1Txt.textColor = RGBCOLOR(0xff, 0x66, 0x33);
     [datasView addSubview:data1Txt];
     
@@ -204,7 +210,16 @@ static float hotImgHeight = 85;
     
     //head 顶部背景
     head = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEAD_H)];
-    head.backgroundColor = RGBCOLOR(236, 236, 0xec);
+    head.backgroundColor = ARGBCOLOR(236, 236, 0xec, 0.10);
+    
+    
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurEffectView.frame = CGRectMake(0, 0, SCREEN_WIDTH, HEAD_H);
+    [self.view addSubview:blurEffectView];
+    
+    //head
     [self.view addSubview:head];
     
     //oye 顶部logo
@@ -346,7 +361,7 @@ static float hotImgHeight = 85;
     [mainView addSubview:hot2];
     
     UIImageView *hot2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testTst2.png"]];
-    hot2Img.frame = CGRectMake(4, 4, hotImgWidth, 85);
+    hot2Img.frame = CGRectMake(hotImgPaddingTop, hotImgPaddingLeft, hotImgWidth, hotImgHeight);
     [hot2 addSubview:hot2Img];
     
     UILabel *hot2Title = [[UILabel alloc] init];
@@ -384,6 +399,8 @@ static float hotImgHeight = 85;
     tstKid2.frame = CGRectMake(hot2.frame.size.width - zanKidW, 0, zanKidW, zanKidW);
     [tstKid2 setImage:[UIImage imageNamed:@"tstKid.png"]];
     [hot2 addSubview:tstKid2];
+    
+    
 }
 
 - (void)createDMS
@@ -397,7 +414,7 @@ static float hotImgHeight = 85;
     [mainView addSubview:hot1];
     
     UIImageView *hot1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testDms.png"]];
-    hot1Img.frame = CGRectMake(4, 4, 140, 85);
+    hot1Img.frame = CGRectMake(hotImgPaddingTop, hotImgPaddingLeft, hotImgWidth, hotImgHeight);
     [hot1 addSubview:hot1Img];
     
     UILabel *hot1Title = [[UILabel alloc] init];
@@ -442,7 +459,7 @@ static float hotImgHeight = 85;
     [mainView addSubview:hot2];
     
     UIImageView *hot2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testDms2.png"]];
-    hot2Img.frame = CGRectMake(4, 4, hotImgWidth, 85);
+    hot2Img.frame = CGRectMake(hotImgPaddingTop, hotImgPaddingLeft, hotImgWidth, hotImgHeight);
     [hot2 addSubview:hot2Img];
     
     UILabel *hot2Title = [[UILabel alloc] init];

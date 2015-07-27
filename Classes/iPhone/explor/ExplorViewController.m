@@ -18,6 +18,9 @@ static const int CAT_BAR_H = 34;
 static const int CAT_KID_W = 9;
 static const int CAT_KID_H = 6;
 static float catBarFontSize = 15.0;
+static int catBtnTagOffset = 9000;
+static UIColor *customBlue;
+static UIColor *customGray;
 
 @interface ExplorViewController (){
     UIView *head;
@@ -38,13 +41,22 @@ static float catBarFontSize = 15.0;
     UIButton *catSortBtn;
     
     UIView *stateListView;
+    UIView *sortListView;
     
     UITableView *catTableView;
+    
+    UIButton *catMaskBtn;
     
     int imgId;//just user for test;
     
     BOOL isOpenStateList;
     BOOL isOpenSortList;
+    
+    long currentStateTag;
+    long currentSortTag;
+    
+    NSMutableArray *stateBtns;
+    NSMutableArray *sortBtns;
     
     //NSArray *randImgs;
 }
@@ -56,9 +68,15 @@ static float catBarFontSize = 15.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    customBlue = RGBCOLOR(0x00, 0xaa, 0xff);
+    customGray = RGBCOLOR(0x75, 0x75, 0x75);
+    
     imgId =0;
     isOpenStateList = NO;
     isOpenSortList = NO;
+    
+    stateBtns = [[NSMutableArray alloc] init];
+    sortBtns = [[NSMutableArray alloc] init];
     
     [self fechStateAndSortAatas];
     
@@ -138,8 +156,8 @@ static float catBarFontSize = 15.0;
 - (void)createContentView
 {
     contentView = [[UIScrollView alloc] init];
-    contentView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
-    contentView.contentSize = CGSizeMake(SCREEN_WIDTH * 2, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    contentView.frame = CGRectMake(0, HEAD_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H);
+    contentView.contentSize = CGSizeMake(SCREEN_WIDTH * 2, SCREEN_HEIGHT - HEAD_H);
     contentView.showsHorizontalScrollIndicator = NO;
     contentView.showsVerticalScrollIndicator = NO;
     contentView.pagingEnabled = YES;
@@ -156,7 +174,7 @@ static float catBarFontSize = 15.0;
 - (void)createPathView
 {
     pathView = [[UIView alloc] init];
-    pathView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    pathView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H);
     pathView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
     [contentView addSubview:pathView];
     
@@ -184,8 +202,9 @@ static float catBarFontSize = 15.0;
     catLabelSort.textColor = RGBCOLOR(0x75, 0x75, 0x75);
     [catbar addSubview:catLabelSort];
     
-    
+    //cat state
     catStateBtn = [[UIButton alloc] init];
+    catStateBtn.tag = catBtnTagOffset + 1;
     catStateBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH/2, CAT_BAR_H);
     int gap = 5;
     catStateBtn.imageEdgeInsets = UIEdgeInsetsMake((CAT_BAR_H - CAT_KID_H)/2, catLabelState.frame.origin.x + labelWidth + gap, (CAT_BAR_H - CAT_KID_H)/2, SCREEN_WIDTH/2 - catLabelState.frame.origin.x - labelWidth - CAT_KID_W - gap);
@@ -209,7 +228,10 @@ static float catBarFontSize = 15.0;
         btn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
         [btn setTitleColor:RGBCOLOR(0x00, 0xaa, 0xff) forState:UIControlStateHighlighted];
         [btn setTitleColor:RGBCOLOR(0x75, 0x75, 0x76) forState:UIControlStateNormal];
+        btn.tag = catBtnTagOffset + 81 + i;
+        [btn addTarget:self action:@selector(pressListBtn:) forControlEvents:UIControlEventTouchUpInside];
         
+        [stateBtns addObject:btn];
         [stateListView addSubview:btn];
         
         UIView *line = [[UIView alloc] init];
@@ -221,7 +243,54 @@ static float catBarFontSize = 15.0;
         }
         [stateListView addSubview:line];
     }
-    [pathView addSubview:stateListView];
+    currentStateTag = catBtnTagOffset + 81;
+    
+    //cat sort
+    catSortBtn = [[UIButton alloc] init];
+    catSortBtn.tag = catBtnTagOffset + 2;
+    //catSortBtn.backgroundColor = [UIColor redColor];
+    catSortBtn.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2, CAT_BAR_H);
+    gap = 5;
+    catSortBtn.imageEdgeInsets = UIEdgeInsetsMake((CAT_BAR_H - CAT_KID_H)/2, (catLabelSort.frame.origin.x - SCREEN_WIDTH/2) + labelWidth + gap, (CAT_BAR_H - CAT_KID_H)/2, SCREEN_WIDTH - catLabelSort.frame.origin.x - labelWidth - CAT_KID_W - gap);
+    [catSortBtn setImage:[UIImage imageNamed:@"catDown.png"] forState:UIControlStateNormal];
+    [catbar addSubview:catSortBtn];
+    [catSortBtn addTarget:self action:@selector(pressCatBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    sortListView = [[UIView alloc] init];
+    sortListView.frame = CGRectMake(SCREEN_WIDTH/2, CAT_BAR_H, SCREEN_WIDTH/2, [catSortArray count] * 30);
+    NSLog(@"%lu", (unsigned long)[catStateArray count]);
+    sortListView.backgroundColor = ARGBCOLOR(0xff, 0xff, 0xff, 0.95);
+    
+    len = [catSortArray count];
+    for (int i = 0; i < len; i++) {
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame = CGRectMake(0.5, i * 30, SCREEN_WIDTH/ 2 - 1, 30);
+        [btn setTitle:[catSortArray objectAtIndex:i] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        btn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        btn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        [btn setTitleColor:RGBCOLOR(0x00, 0xaa, 0xff) forState:UIControlStateHighlighted];
+        [btn setTitleColor:RGBCOLOR(0x75, 0x75, 0x76) forState:UIControlStateNormal];
+        btn.tag = catBtnTagOffset + 71 + i;
+        
+        [btn addTarget:self action:@selector(pressListBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [sortBtns addObject:btn];
+        [sortListView addSubview:btn];
+        
+        UIView *line = [[UIView alloc] init];
+        line.frame = CGRectMake(0, (i + 1) * 30, SCREEN_WIDTH / 2, 0.5);
+        if (i == (len - 1)) {
+            line.backgroundColor = RGBCOLOR(0x00, 0xaa, 0xff);
+        }else{
+            line.backgroundColor = RGBCOLOR(0xe3, 0xe6, 0xe9);
+        }
+        [sortListView addSubview:line];
+    }
+    currentSortTag = catBtnTagOffset + 71;
+    
+    
     
 }
 
@@ -229,22 +298,39 @@ static float catBarFontSize = 15.0;
 {
     if(catTableView == nil){
         catTableView = [[UITableView alloc] init];
-        catTableView.frame = CGRectMake(0, CAT_BAR_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - CAT_BAR_H - TABBAR_H);
+        catTableView.frame = CGRectMake(0, CAT_BAR_H, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - CAT_BAR_H);
+        catTableView.contentInset = UIEdgeInsetsMake(0, 0, TABBAR_H, 0);
+        catTableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, TABBAR_H, 0);
         [pathView addSubview:catTableView];
+        if (!catMaskBtn) {
+            [self createCatMaskBtn];
+        }
+        
+        if (!stateListView.superview) {
+            [pathView addSubview:stateListView];
+            stateListView.hidden = YES;
+        }
+        
+        if (!sortListView.superview) {
+            [pathView addSubview:sortListView];
+            sortListView.hidden = YES;
+        }
+        
         catTableView.delegate = self;
         catTableView.dataSource = self;
+        
     }
     
     catTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [contentView addSubview:catTableView];
+    //[pathView addSubview:catTableView];
 }
 
 - (void)createUserView
 {
     userView = [[UIView alloc] init];
     userView.backgroundColor = RGBCOLOR(0, 156, 156);
-    userView.frame = CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H);
+    userView.frame = CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H);
     [contentView addSubview:userView];
     
     UILabel *txt = [[UILabel alloc] init];
@@ -253,6 +339,17 @@ static float catBarFontSize = 15.0;
     txt.font = [UIFont systemFontOfSize:16];
     txt.text = @"oops,404!!!";
     [userView addSubview:txt];
+}
+
+- (void)createCatMaskBtn
+{
+    catMaskBtn = [[UIButton alloc] init];
+    
+    catMaskBtn.frame = CGRectMake(0, CAT_BAR_H, SCREEN_WIDTH, SCREEN_HEIGHT - CAT_BAR_H - HEAD_H);
+    catMaskBtn.backgroundColor = ARGBCOLOR(0, 0, 0, 0.3);
+    catMaskBtn.hidden = YES;
+    [catMaskBtn addTarget:self action:@selector(pressMaskBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [pathView addSubview:catMaskBtn];
 }
 
 #pragma mark - UITableView   Delegate
@@ -292,15 +389,117 @@ static float catBarFontSize = 15.0;
     return cell;
 }
 
+#pragma mark - Press List Btn
+- (void)pressListBtn:(UIButton *)btn
+{
+    long tag = btn.tag - catBtnTagOffset;
+    
+    UIButton *lastBtn;
+    
+    if (tag > 80) {
+        //state
+        [self closeStateListView];
+        catMaskBtn.hidden = YES;
+        if (currentStateTag == btn.tag) {
+            return;
+        }
+        lastBtn = [stateBtns objectAtIndex:(currentStateTag - catBtnTagOffset - 81)];
+        [lastBtn setTitleColor:customGray forState:UIControlStateNormal];
+        [btn setTitleColor:customBlue forState:UIControlStateNormal];
+        currentStateTag = btn.tag;
+        catLabelState.text = btn.titleLabel.text;
+        
+    }else if(tag > 70){
+        //sort
+        [self closeSortListView];
+        catMaskBtn.hidden = YES;
+        if (currentSortTag == btn.tag) {
+            return;
+        }
+        lastBtn = [sortBtns objectAtIndex:(currentSortTag - catBtnTagOffset - 71)];
+        [lastBtn setTitleColor:customGray forState:UIControlStateNormal];
+        [btn setTitleColor:customBlue forState:UIControlStateNormal];
+        currentSortTag = btn.tag;
+        catLabelSort.text = btn.titleLabel.text;
+        
+    }
+}
+
+#pragma mark - Press Cat Btn
+- (void)pressMaskBtn:(UIButton *)btn
+{
+    [self closeSortListView];
+    [self closeStateListView];
+    catMaskBtn.hidden = YES;
+}
+
 #pragma mark - Press Cat Btn
 - (void)pressCatBtn:(UIButton *)btn
 {
-    if (isOpenStateList) {
-        isOpenStateList = !isOpenStateList;
-        
+    long tag = btn.tag - catBtnTagOffset;
+    switch (tag) {
+        case 1:
+            [self toggleCatStateBtn];
+            break;
+        case 2:
+            [self toggleCatSortBtn];
+            break;
     }
-    
-    NSLog(@"press Cat Btn");
+
+}
+
+- (void)toggleCatStateBtn
+{
+    if (isOpenSortList) {
+        [self closeSortListView];
+    }
+    if (!isOpenStateList) {
+        catLabelState.textColor = customBlue;
+        [catStateBtn setImage:[UIImage imageNamed:@"catUp.png"] forState:UIControlStateNormal];
+        stateListView.hidden = NO;
+        catMaskBtn.hidden = NO;
+    }else{
+        catLabelState.textColor = customGray;
+        [catStateBtn setImage:[UIImage imageNamed:@"catDown.png"] forState:UIControlStateNormal];
+        stateListView.hidden = YES;
+        catMaskBtn.hidden = YES;
+    }
+    isOpenStateList = !isOpenStateList;
+}
+
+- (void)toggleCatSortBtn
+{
+    if (isOpenStateList) {
+        [self closeStateListView];
+    }
+    if (!isOpenSortList) {
+        catLabelSort.textColor = customBlue;
+        [catSortBtn setImage:[UIImage imageNamed:@"catUp.png"] forState:UIControlStateNormal];
+        sortListView.hidden = NO;
+        catMaskBtn.hidden = NO;
+    }else{
+        catLabelSort.textColor = customGray;
+        [catSortBtn setImage:[UIImage imageNamed:@"catDown.png"] forState:UIControlStateNormal];
+        sortListView.hidden = YES;
+        catMaskBtn.hidden = YES;
+    }
+    isOpenSortList = !isOpenSortList;
+}
+
+- (void)closeStateListView
+{
+    isOpenStateList = NO;
+    stateListView.hidden = YES;
+    catLabelState.textColor = customGray;
+    [catStateBtn setImage:[UIImage imageNamed:@"catDown.png"] forState:UIControlStateNormal];
+}
+
+- (void)closeSortListView
+{
+    isOpenSortList = NO;
+    sortListView.hidden = YES;
+    catLabelSort.textColor = customGray;
+    [catSortBtn setImage:[UIImage imageNamed:@"catDown.png"] forState:UIControlStateNormal];
 }
 
 #pragma mark - CustabBar tap delegate Oye2CusTabBarDelegate
@@ -359,13 +558,13 @@ static float catBarFontSize = 15.0;
 #pragma mark - show Path OR User View
 - (void)showPath
 {
-    [contentView scrollRectToVisible:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H) animated:YES];
+    [contentView scrollRectToVisible:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H) animated:YES];
     //NSLog(@"show path vc!!");
 }
 
 - (void)showUser
 {
-    [contentView scrollRectToVisible:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H) animated:YES];
+    [contentView scrollRectToVisible:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H) animated:YES];
     //NSLog(@"show user vc!!");
 }
 

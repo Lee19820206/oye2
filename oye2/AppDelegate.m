@@ -106,6 +106,7 @@
         self.oyeNavigationVc = [[UINavigationController alloc] initWithRootViewController:self.mainVc];
         
         [oyeNavigationVc.navigationBar setHidden:YES];
+        //self.window.tintColor = [UIColor purpleColor];
         
         [self.window setRootViewController:self.oyeNavigationVc];
 
