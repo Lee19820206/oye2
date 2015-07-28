@@ -14,7 +14,7 @@ static const int HEAD_BTN_H = 30;
 static const int HEAD_BTN_W = 61;
 static const int HEAD_BTN_PADDING_TOP = 27;
 static const int BTN_TAB_OFFSET = 1000;
-static const int CAT_BAR_H = 34;
+static const int CAT_BAR_H = 38;
 static const int CAT_KID_W = 9;
 static const int CAT_KID_H = 6;
 static float catBarFontSize = 15.0;
@@ -164,9 +164,6 @@ static UIColor *customGray;
     contentView.delegate = self;
     contentView.backgroundColor = RGBCOLOR(0xf3, 0xf6, 0xf9);
     contentView.bounces = NO;
-    //contentView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    
-    //contentView.con
     [self.view addSubview:contentView];
     
 }
@@ -188,6 +185,10 @@ static UIColor *customGray;
     
     float labelWidth = catBarFontSize * 4;
     float labelHeight = catBarFontSize;
+    
+    float paddingLeft = 50;
+    float btnH = 35;
+    
     catLabelState = [[UILabel alloc] init];
     catLabelState.frame = CGRectMake((SCREEN_WIDTH / 2 - labelWidth) / 2, (CAT_BAR_H - labelHeight)/2, labelWidth, labelHeight);
     catLabelState.text = @"全部状态";
@@ -213,19 +214,20 @@ static UIColor *customGray;
     [catStateBtn addTarget:self action:@selector(pressCatBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     stateListView = [[UIView alloc] init];
-    stateListView.frame = CGRectMake(0, CAT_BAR_H, SCREEN_WIDTH/2, [catStateArray count] * 30);
+    stateListView.frame = CGRectMake(0, CAT_BAR_H, SCREEN_WIDTH/2, [catStateArray count] * btnH);
     NSLog(@"%lu", (unsigned long)[catStateArray count]);
     stateListView.backgroundColor = ARGBCOLOR(0xff, 0xff, 0xff, 0.95);
+    
     
     NSUInteger len = [catStateArray count];
     for (int i = 0; i < len; i++) {
         UIButton *btn = [[UIButton alloc] init];
-        btn.frame = CGRectMake(0.5, i * 30, SCREEN_WIDTH/ 2 - 1, 30);
+        btn.frame = CGRectMake(0.5, i * btnH, SCREEN_WIDTH/ 2 - 1, btnH);
         [btn setTitle:[catStateArray objectAtIndex:i] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.titleLabel.textAlignment = NSTextAlignmentLeft;
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        btn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        btn.contentEdgeInsets = UIEdgeInsetsMake(0, paddingLeft, 0, 0);
         [btn setTitleColor:RGBCOLOR(0x00, 0xaa, 0xff) forState:UIControlStateHighlighted];
         [btn setTitleColor:RGBCOLOR(0x75, 0x75, 0x76) forState:UIControlStateNormal];
         btn.tag = catBtnTagOffset + 81 + i;
@@ -235,7 +237,7 @@ static UIColor *customGray;
         [stateListView addSubview:btn];
         
         UIView *line = [[UIView alloc] init];
-        line.frame = CGRectMake(0, (i + 1) * 30, SCREEN_WIDTH / 2, 0.5);
+        line.frame = CGRectMake(0, (i + 1) * btnH, SCREEN_WIDTH / 2, 0.5);
         if (i == (len - 1)) {
             line.backgroundColor = RGBCOLOR(0x00, 0xaa, 0xff);
         }else{
@@ -257,19 +259,19 @@ static UIColor *customGray;
     [catSortBtn addTarget:self action:@selector(pressCatBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     sortListView = [[UIView alloc] init];
-    sortListView.frame = CGRectMake(SCREEN_WIDTH/2, CAT_BAR_H, SCREEN_WIDTH/2, [catSortArray count] * 30);
+    sortListView.frame = CGRectMake(SCREEN_WIDTH/2, CAT_BAR_H, SCREEN_WIDTH/2, [catSortArray count] * btnH);
     NSLog(@"%lu", (unsigned long)[catStateArray count]);
     sortListView.backgroundColor = ARGBCOLOR(0xff, 0xff, 0xff, 0.95);
     
     len = [catSortArray count];
     for (int i = 0; i < len; i++) {
         UIButton *btn = [[UIButton alloc] init];
-        btn.frame = CGRectMake(0.5, i * 30, SCREEN_WIDTH/ 2 - 1, 30);
+        btn.frame = CGRectMake(0.5, i * btnH, SCREEN_WIDTH/ 2 - 1, btnH);
         [btn setTitle:[catSortArray objectAtIndex:i] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.titleLabel.textAlignment = NSTextAlignmentLeft;
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        btn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        btn.contentEdgeInsets = UIEdgeInsetsMake(0, paddingLeft, 0, 0);
         [btn setTitleColor:RGBCOLOR(0x00, 0xaa, 0xff) forState:UIControlStateHighlighted];
         [btn setTitleColor:RGBCOLOR(0x75, 0x75, 0x76) forState:UIControlStateNormal];
         btn.tag = catBtnTagOffset + 71 + i;
@@ -280,7 +282,7 @@ static UIColor *customGray;
         [sortListView addSubview:btn];
         
         UIView *line = [[UIView alloc] init];
-        line.frame = CGRectMake(0, (i + 1) * 30, SCREEN_WIDTH / 2, 0.5);
+        line.frame = CGRectMake(0, (i + 1) * btnH, SCREEN_WIDTH / 2, 0.5);
         if (i == (len - 1)) {
             line.backgroundColor = RGBCOLOR(0x00, 0xaa, 0xff);
         }else{
@@ -395,6 +397,7 @@ static UIColor *customGray;
     long tag = btn.tag - catBtnTagOffset;
     
     UIButton *lastBtn;
+    float w = 0.0;
     
     if (tag > 80) {
         //state
@@ -408,7 +411,8 @@ static UIColor *customGray;
         [btn setTitleColor:customBlue forState:UIControlStateNormal];
         currentStateTag = btn.tag;
         catLabelState.text = btn.titleLabel.text;
-        
+        w = [self caculateCatLabelWidthUse:catLabelState.text];
+        [self relayoutStateLabelAndStateBtnUse:w];
     }else if(tag > 70){
         //sort
         [self closeSortListView];
@@ -421,8 +425,45 @@ static UIColor *customGray;
         [btn setTitleColor:customBlue forState:UIControlStateNormal];
         currentSortTag = btn.tag;
         catLabelSort.text = btn.titleLabel.text;
-        
+        w = [self caculateCatLabelWidthUse:catLabelSort.text];
+        [self relayoutSortLabelAndSortBtnUse:w];
     }
+}
+
+#pragma mark - caculate label width
+- (float)caculateCatLabelWidthUse:(NSString *)str
+{
+    float w = 0.0;
+    CGSize size = [str sizeWithAttributes:@{NSFontAttributeName: catLabelSort.font}];
+    w = size.width;
+    return w;
+    
+}
+
+- (void)relayoutStateLabelAndStateBtnUse:(float)w
+{
+    float labelWidth;
+    labelWidth = w;
+    CGRect f = catLabelState.frame;
+    f.origin.x = (SCREEN_WIDTH / 2 - labelWidth) / 2;
+    f.size.width = w;
+    catLabelState.frame = f;
+    
+    float gap = 5;
+    catStateBtn.imageEdgeInsets = UIEdgeInsetsMake((CAT_BAR_H - CAT_KID_H)/2, catLabelState.frame.origin.x + labelWidth + gap, (CAT_BAR_H - CAT_KID_H)/2, SCREEN_WIDTH/2 - catLabelState.frame.origin.x - labelWidth - CAT_KID_W - gap);
+}
+
+- (void)relayoutSortLabelAndSortBtnUse:(float)w
+{
+    float labelWidth;
+    labelWidth = w;
+    CGRect f = catLabelSort.frame;
+    f.origin.x = SCREEN_WIDTH / 2 + (SCREEN_WIDTH / 2 - labelWidth) / 2;
+    f.size.width = w;
+    catLabelSort.frame = f;
+    
+    float gap = 5;
+    catSortBtn.imageEdgeInsets = UIEdgeInsetsMake((CAT_BAR_H - CAT_KID_H)/2, (catLabelSort.frame.origin.x - SCREEN_WIDTH/2) + labelWidth + gap, (CAT_BAR_H - CAT_KID_H)/2, SCREEN_WIDTH - catLabelSort.frame.origin.x - labelWidth - CAT_KID_W - gap);
 }
 
 #pragma mark - Press Cat Btn

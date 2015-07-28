@@ -29,7 +29,12 @@ static float hotImgPaddingTop = 4;
 static float hotImgPaddingLeft = 4;
 static float hotImgWidth = 140;
 static float hotImgHeight = 85;
+//static float hotTxtPaddingDown = 10;
+//static float hotTxtFontSize = 12;
+
+
 //330 * 200 [750]
+static float hotTxtDy = 0.0;
 
 @interface GuanZhuViewController (){
     UIView *head;
@@ -50,6 +55,14 @@ static float hotImgHeight = 85;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (SCREEN_WIDTH >= 375) {
+        hotTxtDy = 10;
+    }else if(SCREEN_WIDTH >= 320){
+        hotTxtDy = 0.0;
+    }else{
+        hotTxtDy = 0.0;
+    }
     
     //BANNER_H = SCREEN_WIDTH * 430 / 750;
     BANNER_H = SCREEN_WIDTH * 450 / 750;
@@ -302,7 +315,8 @@ static float hotImgHeight = 85;
 {
     //项目天使投
     
-    
+    float dy = hotTxtDy;
+    float ty = 0.0;
     UIView *hot1 = [[UIView alloc] init];
     hot1.frame = CGRectMake(10, hotPaddingTop + BANNER_H + FOUR_BTNS_BG_H, SCREEN_WIDTH - 10 * 2, hot_h);
     hot1.backgroundColor = [UIColor whiteColor];
@@ -325,24 +339,28 @@ static float hotImgHeight = 85;
     UILabel *hot1Txt1 = [[UILabel alloc] init];
     hot1Txt1.text = @"已融";
     hot1Txt1.font = [UIFont boldSystemFontOfSize:12];
-    hot1Txt1.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, 50, 24, 12);
+    ty = dy + 50;
+    hot1Txt1.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, ty, 24, 12);
     [hot1 addSubview:hot1Txt1];
     
     UILabel *hot1Txt2 = [[UILabel alloc] init];
     hot1Txt2.text = @"76.5%";
     hot1Txt2.textColor = RGBCOLOR(0xff, 0x66, 0x33);
     hot1Txt2.font = [UIFont boldSystemFontOfSize:12];
-    hot1Txt2.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10 + 24 + 4, 50, 60, 12);
+    ty = dy + 50;
+    hot1Txt2.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10 + 24 + 4, ty, 60, 12);
     [hot1 addSubview:hot1Txt2];
     
     UILabel *hot1Txt3 = [[UILabel alloc] init];
     hot1Txt3.text = @"12天后结束";
     hot1Txt3.font = [UIFont boldSystemFontOfSize:12];
-    hot1Txt3.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, 50 + 18, 72, 12);
+    ty = dy + 50 + 18;
+    hot1Txt3.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, ty, 72, 12);
     [hot1 addSubview:hot1Txt3];
     
     UIButton *tstBtn = [[UIButton alloc] init];
-    tstBtn.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
+    ty = dy + 50;
+    tstBtn.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, ty, 64.5, 33.5);
     [tstBtn setImage:[UIImage imageNamed:@"tstBtn1.png"] forState:UIControlStateNormal];
     [tstBtn setImage:[UIImage imageNamed:@"tstBtn2.png" ] forState:UIControlStateHighlighted];
     [hot1 addSubview:tstBtn];
@@ -353,6 +371,7 @@ static float hotImgHeight = 85;
     [hot1 addSubview:tstKid1];
     
     //////////////
+    
     UIView *hot2 = [[UIView alloc] init];
     hot2.frame = CGRectMake(10, hotPaddingTop + BANNER_H + FOUR_BTNS_BG_H + hot_h, SCREEN_WIDTH - 10 * 2, hot_h);
     hot2.backgroundColor = [UIColor whiteColor];
@@ -373,24 +392,28 @@ static float hotImgHeight = 85;
     UILabel *hot2Txt1 = [[UILabel alloc] init];
     hot2Txt1.text = @"已融";
     hot2Txt1.font = [UIFont boldSystemFontOfSize:12];
-    hot2Txt1.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, 50, 24, 12);
+    ty = dy + 50;
+    hot2Txt1.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, ty, 24, 12);
     [hot2 addSubview:hot2Txt1];
     
     UILabel *hot2Txt2 = [[UILabel alloc] init];
     hot2Txt2.text = @"80.02%";
     hot2Txt2.textColor = RGBCOLOR(0xff, 0x66, 0x33);
     hot2Txt2.font = [UIFont boldSystemFontOfSize:12];
-    hot2Txt2.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10 + 24 + 4, 50, 60, 12);
+    ty = dy + 50;
+    hot2Txt2.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10 + 24 + 4, ty, 60, 12);
     [hot2 addSubview:hot2Txt2];
     
     UILabel *hot2Txt3 = [[UILabel alloc] init];
     hot2Txt3.text = @"8天后结束";
     hot2Txt3.font = [UIFont boldSystemFontOfSize:12];
-    hot2Txt3.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, 50 + 18, 72, 12);
+    ty = dy + 50 + 18;
+    hot2Txt3.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, ty, 72, 12);
     [hot2 addSubview:hot2Txt3];
     
     UIButton *tstBtn2 = [[UIButton alloc] init];
-    tstBtn2.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
+    ty = 50 + dy;
+    tstBtn2.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, ty, 64.5, 33.5);
     [tstBtn2 setImage:[UIImage imageNamed:@"tstBtn1.png"] forState:UIControlStateNormal];
     [tstBtn2 setImage:[UIImage imageNamed:@"tstBtn2.png" ] forState:UIControlStateHighlighted];
     [hot2 addSubview:tstBtn2];
@@ -406,6 +429,9 @@ static float hotImgHeight = 85;
 - (void)createDMS
 {
     //项目待秒杀
+    float dy = hotTxtDy;
+    float ty = 0.0;
+    
     UIView *hot1 = [[UIView alloc] init];
     hot1.frame = CGRectMake(10, hotPaddingTop + BANNER_H + FOUR_BTNS_BG_H + hot_h * 2 + GAP_BETWEEN_HOT, SCREEN_WIDTH - 10 * 2, hot_h);
     hot1.backgroundColor = [UIColor whiteColor];
@@ -427,7 +453,8 @@ static float hotImgHeight = 85;
     hot1Txt1.text = @"等待上线";
     hot1Txt1.textColor = RGBCOLOR(0x6a, 0x6a, 0x6a);
     hot1Txt1.font = [UIFont boldSystemFontOfSize:14];
-    hot1Txt1.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, 50, 100, 12);
+    ty = dy + 50;
+    hot1Txt1.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, ty, 100, 12);
     [hot1 addSubview:hot1Txt1];
     
     
@@ -435,11 +462,13 @@ static float hotImgHeight = 85;
     hot1Txt2.textColor = RGBCOLOR(0xff, 0x66, 0x33);
     hot1Txt2.text = @"10天08:08:08";
     hot1Txt2.font = [UIFont boldSystemFontOfSize:12];
-    hot1Txt2.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, 50 + 18, hotImgWidth, 12);
+    ty = dy + 50 + 18;
+    hot1Txt2.frame = CGRectMake(hot1Img.frame.origin.x + hotImgWidth + 10, ty, hotImgWidth, 12);
     [hot1 addSubview:hot1Txt2];
     
     UIButton *tstBtn = [[UIButton alloc] init];
-    tstBtn.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
+    ty = dy + 50;
+    tstBtn.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, ty, 64.5, 33.5);
     [tstBtn setImage:[UIImage imageNamed:@"dmsBtn1.png"] forState:UIControlStateNormal];
     [tstBtn setImage:[UIImage imageNamed:@"dmsBtn2.png" ] forState:UIControlStateHighlighted];
     [hot1 addSubview:tstBtn];
@@ -472,7 +501,8 @@ static float hotImgHeight = 85;
     hot2Txt1.text = @"等待上线";
     hot2Txt1.textColor = RGBCOLOR(0x6a, 0x6a, 0x6a);
     hot2Txt1.font = [UIFont boldSystemFontOfSize:14];
-    hot2Txt1.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, 50, 100, 12);
+    ty = dy + 50;
+    hot2Txt1.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, ty, 100, 12);
     [hot2 addSubview:hot2Txt1];
     
     
@@ -480,11 +510,13 @@ static float hotImgHeight = 85;
     hot2Txt2.textColor = RGBCOLOR(0xff, 0x66, 0x33);
     hot2Txt2.text = @"10天08:08:08";
     hot2Txt2.font = [UIFont boldSystemFontOfSize:12];
-    hot2Txt2.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, 50 + 18, hotImgWidth, 12);
+    ty = dy + 50 + 18;
+    hot2Txt2.frame = CGRectMake(hot2Img.frame.origin.x + hotImgWidth + 10, ty, hotImgWidth, 12);
     [hot2 addSubview:hot2Txt2];
     
     UIButton *tstBtn2 = [[UIButton alloc] init];
-    tstBtn2.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, 50, 64.5, 33.5);
+    ty = dy + 50;
+    tstBtn2.frame = CGRectMake(SCREEN_WIDTH - 10 * 2 - 6 - 64.5, ty, 64.5, 33.5);
     [tstBtn2 setImage:[UIImage imageNamed:@"dmsBtn1.png"] forState:UIControlStateNormal];
     [tstBtn2 setImage:[UIImage imageNamed:@"dmsBtn2.png" ] forState:UIControlStateHighlighted];
     [hot2 addSubview:tstBtn2];

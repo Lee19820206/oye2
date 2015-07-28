@@ -12,12 +12,12 @@
 #import "PostViewController.h"
 #import "ExplorViewController.h"
 
-static const int TAB_W = 33;
-static const int MID_BTN_W = 45;
-static const int PADDING = 20;
-static const int BTN_NUM = 4;
-static const int TAB_PADDING_TOP = 5;
-static const int TAB_H = 40;
+static int TAB_W = 33;
+static int MID_BTN_W = 45;
+static int PADDING = 20;
+static int BTN_NUM = 4;
+static int TAB_PADDING_TOP = 5;
+static int TAB_H = 40;
 
 @interface MainViewController ()
 {
