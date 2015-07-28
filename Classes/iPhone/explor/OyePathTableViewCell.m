@@ -144,7 +144,6 @@ static NSUInteger LABEL_W = 50;
     [rightBtn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     leftImgView.image = imgLeft;
-    NSLog(@"imgLeftinit!");
     rightImgView.image = imgRight;
     
     if (imgLeft == nil) {
@@ -163,8 +162,6 @@ static NSUInteger LABEL_W = 50;
     leftAvatar.frame = CGRectMake(30.f, IMG_H - 30.f, 22.f, 22.f);
     leftAvatar.layer.masksToBounds = YES;
     leftAvatar.layer.cornerRadius = 11.f;
-    leftAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
-    leftAvatar.layer.borderWidth = 2.f;
     
     UILabel *leftNameLablel;
     UILabel *rightNameLabel;
@@ -172,13 +169,13 @@ static NSUInteger LABEL_W = 50;
     leftNameLablel = [[UILabel alloc] init];
     leftNameLablel.frame = CGRectMake(60.f, IMG_H - 30.f + 5.f, IMG_W - 60.f, 12.f);
     leftNameLablel.text =[NSString stringWithFormat:@"By %@", [nameArray objectAtIndex:(arc4random()%[nameArray count])]];// ;
-    leftNameLablel.font = [UIFont systemFontOfSize:12.f];
+    leftNameLablel.font = [UIFont systemFontOfSize:10.f];
     [leftImgView addSubview:leftNameLablel];
     
     rightNameLabel = [[UILabel alloc] init];
     rightNameLabel.frame = CGRectMake(60.f, IMG_H - 30.f + 5.f, IMG_W - 60.f, 12.f);
     rightNameLabel.text = [NSString stringWithFormat:@"By %@", [nameArray objectAtIndex:(arc4random()%[nameArray count])]];;
-    rightNameLabel.font = [UIFont systemFontOfSize:12.f];
+    rightNameLabel.font = [UIFont systemFontOfSize:10.f];
     [rightImgView addSubview:rightNameLabel];
     
     leftNameLablel.textColor = rightNameLabel.textColor = [UIColor whiteColor];
@@ -187,8 +184,6 @@ static NSUInteger LABEL_W = 50;
     rightAvatar.frame = CGRectMake(30.f, IMG_H - 30.f, 22.f, 22.f);
     rightAvatar.layer.masksToBounds = YES;
     rightAvatar.layer.cornerRadius = 11.f;
-    rightAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
-    rightAvatar.layer.borderWidth = 2.f;
     
     [leftImgView addSubview:leftAvatar];
     

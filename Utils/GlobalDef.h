@@ -17,11 +17,6 @@
 //当前设备的屏幕高度
 #define SCREEN_HEIGHT   [[UIScreen mainScreen] bounds].size.height
 
-//navigationview顶部的高度
-#define NAVIGATION_VIEW_HEAD 64
-
-#define TAB_VIEW_BOTTOM 49
-
 //终于告别讨厌的长长的颜色
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
 
@@ -30,7 +25,7 @@
 
 //app顶部高度
 #define HEAD_H 64
-
+//app底部高度
 #define TABBAR_H 49
 
 //app statuBar 高度

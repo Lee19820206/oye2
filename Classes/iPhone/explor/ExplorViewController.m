@@ -13,12 +13,12 @@
 static const int HEAD_BTN_H = 30;
 static const int HEAD_BTN_W = 61;
 static const int HEAD_BTN_PADDING_TOP = 27;
-static const int BTN_TAB_OFFSET = 1000;
+static const int BTN_TAB_OFFSET = 2000;
 static const int CAT_BAR_H = 38;
 static const int CAT_KID_W = 9;
 static const int CAT_KID_H = 6;
 static float catBarFontSize = 15.0;
-static int catBtnTagOffset = 9000;
+static int catBtnTagOffset = 4000;
 static UIColor *customBlue;
 static UIColor *customGray;
 
@@ -384,7 +384,7 @@ static UIColor *customGray;
         NSString *rStr = [NSString stringWithFormat:@"testPathImg0%d.png", imgId];
         //NSString *rStr = [NSString stringWithFormat:@"testPathImg0%d.png", arc4random() % 6];
         imgId++;
-        NSLog(@"%@ #### %@", lStr, rStr);
+        //NSLog(@"%@ #### %@", lStr, rStr);
         [cell initWithType:PathTypeWaitting andImageLeft:[UIImage imageNamed:lStr] andImageRight:[UIImage imageNamed:rStr] andInfo:@"hello"];
     }
     

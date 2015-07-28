@@ -70,18 +70,18 @@ static int TAB_H = 40;
     vc3 = [[UIViewController alloc] init];
     vc4 = [[UIViewController alloc] init];
     UIView *Vc4_SubView = [[UIView alloc] initWithFrame:
-                           CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TAB_VIEW_BOTTOM)];
+                           CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TABBAR_H)];
     Vc4_SubView.backgroundColor = [UIColor greenColor];
     [vc4.view addSubview:Vc4_SubView];
     
     UIView *Vc3_SubView = [[UIView alloc] initWithFrame:
-                           CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TAB_VIEW_BOTTOM)];
+                           CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - TABBAR_H)];
     Vc3_SubView.backgroundColor = ARGBCOLOR(10, 167, 216, 1.0);
     [vc3.view addSubview:Vc3_SubView];
     
     naviRootVc = [[UIViewController alloc] init];
     UIView *naviRootVcSubView = [[UIView alloc] initWithFrame:
-                                 CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - NAVIGATION_VIEW_HEAD - TAB_VIEW_BOTTOM)];
+                                 CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - HEAD_H - TABBAR_H)];
     naviRootVcSubView.backgroundColor = [UIColor redColor];
     [naviRootVc.view addSubview:naviRootVcSubView];
     naviVc = [[UINavigationController alloc] initWithRootViewController:naviRootVc];
@@ -172,8 +172,6 @@ static int TAB_H = 40;
     
     UIViewController *vc = [self.viewControllers objectAtIndex:(tabIndex - 1)];
     self.selectedViewController = vc;
-    
-    NSLog(@"tab press");
 }
 
 - (void)didReceiveMemoryWarning {
